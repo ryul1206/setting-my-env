@@ -34,15 +34,15 @@ function already-installed() {
 # Detections
 ################################################
 
-function is-exist() {
+function is-not-exist() {
     NOW_PKG=""
     { # silent
         NOW_PKG=$(dpkg -l $1 | grep ii)
     } &>/dev/null
     if [ "$NOW_PKG" == "" ]; then
-        return 1 # false
-    else
         return 0 # true
+    else
+        return 1 # false
     fi
 }
 
@@ -64,13 +64,12 @@ function apt-install() {
     failed=0
     for PKG_NAME in "${pkgs[@]}"; do
         count=$(($count + 1))
-
-        if is-exist $PKG_NAME; then
+        if is-not-exist $PKG_NAME; then
             printf '\e[93m%-6s\e[0m' "Now installing [ $PKG_NAME ]... "
             { # silent
                 sudo apt install $PKG_NAME -y
             } &>/dev/null
-            if is-exist $PKG_NAME; then
+            if is-not-exist $PKG_NAME; then
                 failed=$(($failed + 1))
                 # Light red
                 printf '\e[91m%-6s\e[0m\n' "Failed. ($failed)"

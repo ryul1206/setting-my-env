@@ -1,9 +1,8 @@
 #!/bin/bash
-SHELL_PATH=$(dirname $(realpath $0))
-source ${SHELL_PATH}/../functions/apt-install.sh
+source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
+
 
 (section-separator zsh)
-
 
 (subsection "zsh")
 
@@ -14,5 +13,3 @@ if [ "$NOW_ZSH" == "" ]; then
 else
     (already-installed "zsh")
 fi
-
-bash ${SHELL_PATH}/oh-my-zsh.sh

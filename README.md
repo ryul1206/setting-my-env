@@ -6,15 +6,52 @@ This repository is a shell script collection for a rapid personal setting.
 ![GitHub](https://img.shields.io/github/license/ryul1206/setting-my-env.svg)
 
 
-TODO:
-```sh
-bash -c "$(wget -O- https://raw.githubusercontent.com/ryul1206/setting-my-env/master/install.sh)"
-```
+## Installation All
+
+#### via curl
 
 ```sh
-source "$(wget -O- https://raw.githubusercontent.com/ryul1206/setting-my-env/master/install.sh)"
-source <(curl -s https://raw.githubusercontent.com/ryul1206/setting-my-env/master/install.sh)
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/install.sh)"
 ```
+
+#### via wget
+
+```sh
+bash -c "$(wget -q -o /dev/null -O- https://raw.githubusercontent.com/ryul1206/setting-my-env/master/install.sh)"
+```
+
+## Importing `functions.sh`
+
+```sh
+source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
+```
+
+This shell script contains the features below:
+
+#### Beautiful Prints
+
+- section-separator
+- subsection
+- emphasis
+- already-installed
+
+#### Detections
+
+- is-not-exist
+  - if not exist, return 0 # true
+  - else, return 1 # false
+
+#### Batch: apt install
+
+- apt-install
+    ```sh
+    ALL_PKGS=(
+        "pkg-A"
+        "pkg-B"
+        "pkg-C"
+    )
+    apt-install "${ALL_PKGS[@]}"
+    ```
 
 ---
 

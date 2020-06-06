@@ -1,6 +1,5 @@
 #!/bin/bash
-SHELL_PATH=$(dirname $(realpath $0))
-source ${SHELL_PATH}/../functions/apt-install.sh
+source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
 
 
 (section-separator "google chrome")

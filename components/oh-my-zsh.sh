@@ -1,6 +1,5 @@
 #!/bin/bash
-SHELL_PATH=$(dirname $(realpath $0))
-source ${SHELL_PATH}/../../functions/apt-install.sh
+source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
 
 
 (subsection "oh-my-zsh")
@@ -9,7 +8,7 @@ cd
 if [ -d ".oh-my-zsh" ]; then
     already-installed "oh-my-zsh"
 else
-    sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     ####################
     # oh-my-zsh plugins
