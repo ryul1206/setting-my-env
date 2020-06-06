@@ -1,9 +1,7 @@
 #!/bin/bash
 
-### STYLE GUIDE
-# https://google.github.io/styleguide/shellguide.html
+source "$(wget -O- https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)"
 
-source ./functions/apt-install.sh
 
 (emphasis "sudo apt update")
 sudo apt update
@@ -19,13 +17,12 @@ BASIC_PKGS=(
 apt-install "${BASIC_PKGS[@]}"
 
 
-bash ./components/google-chrome.sh
-bash ./components/ros1.sh
+# bash ./components/google-chrome.sh
+# bash ./components/ros1.sh
 
 
 
 
 
-bash ./components/zsh.sh
-bash ./components/oh-my-zsh.sh
+# bash ./components/zsh.sh
 (emphasis "Finished!")
