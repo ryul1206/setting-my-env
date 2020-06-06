@@ -40,7 +40,7 @@ bash -c "$(wget -q -o /dev/null -O- https://raw.githubusercontent.com/ryul1206/s
    - oh-my-zsh
 1. utilities
    - google-chrome
-   - todoist (will be installed in `~/Downloads`)
+   - [todoist](https://github.com/KryDos/todoist-linux) (will be installed in `~/Downloads`)
 2. others
    - ros1 (melodic)
 

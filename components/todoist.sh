@@ -2,7 +2,6 @@
 source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
 
 (section-separator "todoist")
-# https://github.com/KryDos/todoist-linux
 
 NOW_CHROME=$(which todoist)
 if [ "$NOW_CHROME" == "" ]; then
@@ -13,7 +12,7 @@ if [ "$NOW_CHROME" == "" ]; then
 
     # Install Todoist wrapper
     cd ~/Downloads
-    git clone https://github.com/krydos/todoist-linux
+    git clone https://github.com/KryDos/todoist-linux.git
     cd todoist-linux
     make env
     cd
