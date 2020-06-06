@@ -41,6 +41,7 @@ bash -c "$(wget -q -o /dev/null -O- https://raw.githubusercontent.com/ryul1206/s
 1. utilities
    - google-chrome
    - todoist (will be installed in `~/Downloads`)
+   - [logitech-mx-master](https://wiki.archlinux.org/index.php/Logitech_MX_Master)
 2. others
    - ros1 (melodic)
 
