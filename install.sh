@@ -22,6 +22,7 @@ sudo apt upgrade
 BASIC_PKGS=(
     "git"
     "vim"
+    "npm"
 )
 apt-install "${BASIC_PKGS[@]}"
 

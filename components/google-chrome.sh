@@ -9,6 +9,8 @@ if [ "$NOW_CHROME" == "" ]; then
     cd ~/Downloads
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     sudo apt install ./google-chrome-stable_current_amd64.deb -y
+    rm -f google-chrome-stable_current_amd64.deb
+    cd
 else
     already-installed "google-chrome"
 fi
