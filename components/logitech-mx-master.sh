@@ -7,15 +7,44 @@ source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/ma
 
 # NOW_CHROME=$(which todoist)
 if [ "$NOW_CHROME" == "" ]; then
+    # "libudev-dev"
+    # UDEV_DEB="$(ls /var/cache/apt/archives | grep udev_237)"
+    # sudo dpkg -i --force-overwrite /var/cache/apt/archives/$UDEV_DEB
+    # sudo apt purge udev
+    # sudo apt update
+    # sudo apt upgrade
+
     # Ensure installed
-    { # silent
-        sudo apt install cmake -y
-    } &>/dev/null
+    ALL_PKGS=(
+        "cmake"
+        "libevdev-dev"
+        "libconfig-dev"
+        "libtinyxml2-dev"
+        # "libudev-dev"
+    )
+    apt-install "${ALL_PKGS[@]}"
 
     # Install
     cd ~/Downloads
     git clone https://github.com/PixlOne/logiops.git
+    cd logiops
 
+    # Build hidpp
+    # cd src/logid/hidpp
+    # mkdir build
+
+
+    # Build logiops
+    mkdir build
+    cd build
+    cmake ..
+
+    NUM_CORES=$(cat /proc/cpuinfo | grep cores | wc -l)
+    NUM_BEST=$((NUM_CORES+$(printf %.0f `echo "$NUM_CORES*0.2" | bc`)))
+    make -j$NUM_BEST
+
+    # Install
+    sudo make install
 
 
     cd
