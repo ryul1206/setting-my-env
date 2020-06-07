@@ -1,6 +1,5 @@
 #!/bin/bash
-# source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
-source functions.sh
+source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
 
 QUESTION=$(
     cat <<EOM

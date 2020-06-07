@@ -33,3 +33,6 @@ bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/zsh.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/oh-my-zsh.sh)
 (emphasis "Finished!")
+
+# Optionals
+# bash <(curl -fsSL ${COMPONENTS_URL}/gnome-desktop-item.sh)
