@@ -37,10 +37,12 @@ bash -c "$(wget -q -o /dev/null -O- https://raw.githubusercontent.com/ryul1206/s
    - curl
    - wget
    - zsh
-   - oh-my-zsh
+     - oh-my-zsh
+     - zsh-autosuggestions
 1. utilities
    - google-chrome
    - [todoist](https://github.com/KryDos/todoist-linux) (will be installed in `~/Downloads`)
+   - gnome-panel
 2. others
    - ros1 (melodic)
 

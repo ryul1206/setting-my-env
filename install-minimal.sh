@@ -28,10 +28,6 @@ apt-install "${BASIC_PKGS[@]}"
 
 COMPONENTS_URL="${REPOSITORY_URL}/components"
 bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/google-chrome.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/todoist.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/gnome-desktop-item.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/zsh.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/oh-my-zsh.sh)
 (emphasis "Finished!")
