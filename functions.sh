@@ -31,7 +31,7 @@ function already-installed() {
 }
 
 ################################################
-# Detections
+# Evaluations
 ################################################
 
 function is-not-exist() {
@@ -44,6 +44,30 @@ function is-not-exist() {
     else
         return 1 # false
     fi
+}
+
+function ask() {
+    # QUESTION=$1
+    # echo -e "${QUESTION}"
+    # OPTIONS=${@:(-$# + 1)}
+    OPTIONS=${@}
+
+    ((answer = 0))
+    select input in $OPTIONS; do
+        ((count = 0))
+        for option in $OPTIONS; do
+            ((count += 1))
+            if [ "$input" == "$option" ]; then
+                ((answer = count))
+                break
+            fi
+        done
+        if ((answer != 0)); then
+            break
+        fi
+        echo "Sorry. You can only enter from 1 to $#." >&2
+    done
+    echo $answer
 }
 
 ################################################

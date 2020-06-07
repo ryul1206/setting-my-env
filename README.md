@@ -10,7 +10,7 @@ This repository is a shell script collection for a rapid personal setting.
       2. [via wget](#via-wget)
 2. [Importing `functions.sh`](#importing-functionssh)
       1. [Beautiful Prints](#beautiful-prints)
-      2. [Detections](#detections)
+      2. [Evaluations](#evaluations)
       3. [Batch: apt install](#batch-apt-install)
 
 
@@ -63,23 +63,41 @@ This shell script contains the features below:
 - emphasis
 - already-installed
 
-#### Detections
+#### Evaluations
 
 - is-not-exist
   - if not exist, return 0 # true
   - else, return 1 # false
+- ask
+  - Any number of options can be attached freely. (is not limited.)
+   ```sh
+   QUESTION=$(cat << EOM
+   Do you want to set up your GIT?
+   You can initialize your identity and default editor.
+   EOM)
+   echo "${QUESTION}"
+   case $(ask "Yes" "No") in
+   1)
+      # Do something for "Yes"
+      ;;
+   2)
+      # Do something for "No"
+      ;;
+   esac
+   ```
+
 
 #### Batch: apt install
 
 - apt-install
-    ```sh
-    ALL_PKGS=(
-        "pkg-A"
-        "pkg-B"
-        "pkg-C"
-    )
-    apt-install "${ALL_PKGS[@]}"
-    ```
+   ```sh
+   ALL_PKGS=(
+      "pkg-A"
+      "pkg-B"
+      "pkg-C"
+   )
+   apt-install "${ALL_PKGS[@]}"
+   ```
 
 
 ---
