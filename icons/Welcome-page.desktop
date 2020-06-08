@@ -4,7 +4,7 @@
 Version=1.0
 Type=Application
 Terminal=false
-Icon[en_US]=/home/hr/Pictures/icons/heart.png
+Icon[en_US]=/home/hr/funs/setting-my-env/icons/heart.png
 Name[en_US]=Welcome-page.desktop
 Exec=google-chrome /home/hr/funs/welcome-page/index.html
 Comment[en_US]=Welcome page

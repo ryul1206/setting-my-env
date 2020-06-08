@@ -73,19 +73,9 @@ mkdir -p $ROOT_DIR
 mkdir -p $EXTWS_SRC
 mkdir -p $CTKWS_SRC
 cd $EXTWS_SRC
-if [ -f "CMakeLists.txt" ]; then
-    echo -e "\nThis workspace has already been initialized."
-    echo "File '$EXTWS_SRC/CMakeLists.txt' exists."
-else
-    catkin_init_workspace .
-fi
+catkin_init_workspace
 cd $CTKWS_SRC
-if [ -f "CMakeLists.txt" ]; then
-    echo -e "\nThis workspace has already been initialized."
-    echo "File '$CTKWS_SRC/CMakeLists.txt' exists."
-else
-    catkin_init_workspace .
-fi
+catkin_init_workspace
 
 ###########################################################
 source <(curl -fsSL ${COMPONENTS_URL}/coppeliasim-edu-v4.sh)
@@ -143,17 +133,9 @@ apt-install "${ALL_PKGS[@]}"
 
 cd $ROOT_DIR
 safe-git-clone "https://github.com/graspit-simulator/graspit.git"
-cd graspit
+mkdir -p graspit/build/
+cd graspit/build/
 echo ""
-
-if [ -d "build" ]; then
-    echo "Directory '$ROOT_DIR/graspit/build' exists."
-else
-    mkdir build
-fi
-cd build
-echo ""
-
 #warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
 # virtual std::auto_ptr<double> getDataCopy() const;
 #              ^~~~~~~~
@@ -200,7 +182,7 @@ safe-git-clone "https://github.com/graspit-simulator/graspit_commander.git"
 cd .. # $ROOT_DIR/external_ws
 catkin_make
 
-# SHELL_MSG="\n# GraspIt ROS Setup\n"
+SHELL_MSG="\n# GraspIt ROS Setup\n"
 SHELL_MSG+="source $ROOT_DIR/external_ws/devel/setup"
 if [ "$(duplicate-check-bashrc "social-root/external_ws/devel/setup")" ]; then
     echo -e "${SHELL_MSG}.bash\n" >>~/.bashrc
@@ -244,7 +226,28 @@ cd .. # $ROOT_DIR/catkin_ws
 # catkin_make -DCATKIN_BLACKLIST_PACKAGES="foo;bar"
 # catkin_make -DCATKIN_WHITELIST_PACKAGES="foo;bar"
 catkin_make -DCATKIN_WHITELIST_PACKAGES="socialrobot_hardware"
-catkin_make -DCATKIN_BLACKLIST_PACKAGES="context_manager"
+catkin_make -DCATKIN_WHITELIST_PACKAGES="" -DCATKIN_BLACKLIST_PACKAGES="context_manager"
+
+SHELL_MSG="\n# Socialrobot ROS Setup\n"
+SHELL_MSG+="source $ROOT_DIR/catkin_ws/devel/setup"
+if [ "$(duplicate-check-bashrc "social-root/catkin_ws/devel/setup")" ]; then
+    echo -e "${SHELL_MSG}.bash\n" >>~/.bashrc
+fi
+if [ "$(duplicate-check-zshrc "social-root/catkin_ws/devel/setup")" ]; then
+    echo -e "${SHELL_MSG}.zsh\n" >>~/.zshrc
+fi
+# bash, zsh
+if [ "$0" == "bash" ]; then
+    source ~/.bashrc
+elif [ "$0" == "zsh" ]; then
+    source ~/.zshrc
+fi
+
+
+
+
+
+
 
 (emphasis "Finished!")
 # roscore

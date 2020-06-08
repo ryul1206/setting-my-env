@@ -3,7 +3,7 @@
 Version=1.0
 Type=Application
 Terminal=false
-Icon[en_US]=/home/hr/Pictures/icons/todoist-icon.svg
+Icon[en_US]=/home/hr/funs/setting-my-env/icons/todoist-icon.svg
 Name[en_US]=Todoist
 Exec=zsh -c 'cd ~/Downloads/todoist-linux; make up;'
 Comment[en_US]=Todoist wrapper
