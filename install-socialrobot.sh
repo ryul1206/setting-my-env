@@ -49,18 +49,25 @@ COMPONENTS_URL="${BASH_FUNCTION_URL}/components"
 bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
 git config --global credential.helper "cache --timeout 600" # sec
 
-echo ""
-echo "[Warning] Do you want to change your 'bash' to 'zsh'?"
-echo "This will install "
-echo "It also installs zsh, oh-my-zsh, zsh-autosuggestions."
-(emphasis "If you don't know about 'zsh', DO NOT INSTALL!")
-case $(ask "Skip" "Install") in
-1) ;;
-2)
-    bash <(curl -fsSL ${COMPONENTS_URL}/zsh.sh)
-    bash <(curl -fsSL ${COMPONENTS_URL}/oh-my-zsh.sh)
-    ;;
-esac
+(section-separator zsh)
+
+(subsection "zsh")
+
+if [ "$(which zsh)" ]; then
+    (already-installed "zsh")
+else
+    echo "[Warning] Do you want to change your 'bash' to 'zsh'?"
+    echo "This will install "
+    echo "It also installs zsh, oh-my-zsh, zsh-autosuggestions."
+    (emphasis "If you don't know about 'zsh', DO NOT INSTALL!")
+    case $(ask "Skip" "Install") in
+    1) ;;
+    2)
+        sudo apt install zsh -y
+        bash <(curl -fsSL ${COMPONENTS_URL}/oh-my-zsh.sh)
+        ;;
+    esac
+fi
 
 ###########################################################
 bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
