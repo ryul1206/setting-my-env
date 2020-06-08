@@ -47,6 +47,7 @@ fi
 ###########################################################
 COMPONENTS_URL="${BASH_FUNCTION_URL}/components"
 bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
+git config --global credential.helper "cache --timeout 600" # sec
 
 echo ""
 echo "[Warning] Do you want to change your 'bash' to 'zsh'?"
@@ -94,6 +95,7 @@ install-coppeliaSim $ROOT_DIR
 (section-separator "ROS packages for social-robot")
 
 (subsection "Basic packages")
+# sudo apt install ros-melodic-vision-msgs ros-melodic-rosbridge-server ros-melodic-moveit
 ALL_PKGS=(
     "ros-melodic-vision-msgs"
     "ros-melodic-rosbridge-server"
@@ -109,6 +111,7 @@ ALL_PKGS=(
 apt-install "${ALL_PKGS[@]}"
 
 (subsection "ROSPLAN packages")
+# sudo apt install flex freeglut3-dev ros-melodic-navigation ros-melodic-rosjava ros-melodic-move-base ros-melodic-move-base-msgs ros-melodic-nav-msgs ros-melodic-tf2-bullet ros-melodic-mongodb-store
 ALL_PKGS=(
     "flex"
     "freeglut3-dev"
@@ -124,6 +127,7 @@ apt-install "${ALL_PKGS[@]}"
 
 ###########################################################
 (section-separator "GraspIt Library")
+# sudo apt install libqt4-dev libqt4-opengl-dev libqt4-sql-psql libcoin80-dev libsoqt4-dev libblas-dev liblapack-dev libqhull-dev libeigen3-dev
 ALL_PKGS=(
     "libqt4-dev"
     "libqt4-opengl-dev"
@@ -216,8 +220,6 @@ fi
 
 cd $CTKWS_SRC
 # Now, $ROOT_DIR/catkin_ws/src
-
-git config --global credential.helper "cache --timeout 600" # sec
 
 # clone packages --recurse-submodules
 GIT_URL="https://gitlab.com/social-robot/socialrobot.git"

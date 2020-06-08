@@ -28,6 +28,7 @@ apt-install "${BASIC_PKGS[@]}"
 
 COMPONENTS_URL="${REPOSITORY_URL}/components"
 bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
+git config --global credential.helper "cache --timeout 600" # sec
 
 cd
 mkdir -p funs

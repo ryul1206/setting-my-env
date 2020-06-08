@@ -30,9 +30,10 @@ if [ "$(which roscore)" == "" ]; then
             "python-wstool"
             "build-essential"
         )
-        install_packages "${ALL_PKGS[@]}"
+        apt-install "${ALL_PKGS[@]}"
+        # sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
 
-        sudo apt install python-rosdep
+        # sudo apt install python-rosdep
         sudo rosdep init
         rosdep update
     fi
