@@ -80,9 +80,7 @@ else
     1)
         (emphasis "Downloading (CoppeliaSim)")
         TAR_NAME="CoppeliaSim_Edu_V4"
-        (curl -L https://www.coppeliarobotics.com/files/CoppeliaSim_Edu_V4_0_0_Ubuntu18_04.tar.xz >"$TAR_NAME.tar.xz")
-        mkdir -p $TAR_NAME
-        # tar xvf "$TAR_NAME.tar.xz" -C "$TAR_NAME"
+        curl -L https://www.coppeliarobotics.com/files/CoppeliaSim_Edu_V4_0_0_Ubuntu18_04.tar.xz >"$TAR_NAME.tar.xz"
         tar xvf "$TAR_NAME.tar.xz"
         mv "CoppeliaSim_Edu_V4_0_0_Ubuntu18_04" "$TAR_NAME"
         rm -f "$TAR_NAME.tar.xz"
@@ -259,6 +257,7 @@ if [ "$(which bash)" != "" ]; then
     echo "(GRASPIT-ROS) bash detected."
     EXIST=$(cat ~/.bashrc | grep "social-root/external_ws/devel/setup")
     if [ "$EXIST" == "" ]; then
+        echo "" >>~/.bashrc
         echo "# GraspIt ROS Setup" >>~/.bashrc
         echo "source $ROOT_DIR/external_ws/devel/setup.bash" >>~/.bashrc
     fi
@@ -270,6 +269,7 @@ if [ "$(which zsh)" != "" ]; then
     echo "(GRASPIT-ROS) zsh detected."
     EXIST=$(cat ~/.zshrc | grep "social-root/external_ws/devel/setup")
     if [ "$EXIST" == "" ]; then
+        echo "" >>~/.zshrc
         echo "# GraspIt ROS Setup" >>~/.zshrc
         echo "source $ROOT_DIR/external_ws/devel/setup.zsh" >>~/.zshrc
     fi
