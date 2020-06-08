@@ -70,6 +70,8 @@ fi
 
 cd $ROOT_DIR
 if [ -d "CoppeliaSim" ]; then
+    echo "You have 'CoppeliaSim' already."
+else
     echo ""
     echo "The 'CoppeliaSim' folder is not in the '$ROOT_DIR'."
     echo "Do you want to install 'CoppeliaSim' in the '$ROOT_DIR'?"
@@ -143,8 +145,6 @@ if [ -d "CoppeliaSim" ]; then
         (emphasis "Ok. Skip it!")
         ;;
     esac
-else
-    echo "You have 'CoppeliaSim' already."
 fi
 
 ###########################################################
