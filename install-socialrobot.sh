@@ -95,6 +95,7 @@ if [ -d "CoppeliaSim" ]; then
                 echo "(CoppeliaSim) bash detected."
                 EXIST=$(cat ~/.bashrc | grep $ALIAS_NAME)
                 if [ "$EXIST" == "" ]; then
+                    echo "" >>~/.bashrc
                     echo "# CoppeliaSim" >>~/.bashrc
                     echo "alias $ALIAS_NAME='cd $ROOT_DIR/$TAR_NAME; ./coppeliaSim.sh'" >>~/.bashrc
                 else
@@ -115,6 +116,7 @@ if [ -d "CoppeliaSim" ]; then
                 echo "(CoppeliaSim) zsh detected."
                 EXIST=$(cat ~/.zshrc | grep $ALIAS_NAME)
                 if [ "$EXIST" == "" ]; then
+                    echo "" >>~/.zshrc
                     echo "# CoppeliaSim" >>~/.zshrc
                     echo "alias $ALIAS_NAME='cd $ROOT_DIR/$TAR_NAME; ./coppeliaSim.sh'" >>~/.zshrc
                 else
