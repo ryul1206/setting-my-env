@@ -74,8 +74,8 @@ if [ -d "$TAR_NAME" ]; then
     echo "You have 'CoppeliaSim' already."
 else
     echo ""
-    echo "The 'CoppeliaSim' folder is not in the '$ROOT_DIR'."
-    echo "Do you want to install 'CoppeliaSim' in the '$ROOT_DIR'?"
+    echo "The '$TAR_NAME' folder is not in the '$ROOT_DIR/'."
+    echo "Do you want to install 'CoppeliaSim' in the '$ROOT_DIR/'?"
     echo "It will be installed for Ubuntu 18.04, 64 bit."
     case $(ask "Install" "Skip") in
     1)
@@ -152,14 +152,23 @@ bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
 
 (section-separator "ROS packages for social-robot")
+
+(subsection "Basic packages")
 ALL_PKGS=(
     "ros-melodic-vision-msgs"
-    "ros-melodic-moveit"
     "ros-melodic-rosbridge-server"
+    "ros-melodic-moveit" # others
 )
 apt-install "${ALL_PKGS[@]}"
 
-(section-separator "ROS packages for ROSPLAN")
+(subsection "PCL packages")
+ALL_PKGS=(
+    "ros-melodic-pcl-conversions"
+    "ros-melodic-pcl-ros"
+)
+apt-install "${ALL_PKGS[@]}"
+
+(subsection "ROSPLAN packages")
 ALL_PKGS=(
     "flex"
     "freeglut3-dev"
