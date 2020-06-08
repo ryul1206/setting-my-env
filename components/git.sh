@@ -10,7 +10,9 @@ EOM
 
 (section-separator "git")
 
-if [ "$(which git)" == "" ]; then
+if [ "$(which git)" ]; then
+    already-installed "git"
+else
     sudo apt install git -y
     (emphasis "[ Git ] Installation complete!")
 
@@ -46,6 +48,4 @@ if [ "$(which git)" == "" ]; then
         ;;
     2) ;;
     esac
-else
-    already-installed "git"
 fi

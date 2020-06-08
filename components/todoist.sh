@@ -19,17 +19,13 @@ else
     make env
     cd
 
-    # bash
-    if [ "$(which bash)" != "" ]; then
-        echo "" >>~/.bashrc
-        echo "# Todoist" >>~/.bashrc
-        echo "alias todoist='cd ~/Downloads/todoist-linux; make up;'" >>~/.bashrc
+    SHELL_MSG="\n# Todoist\n"
+    SHELL_MSG+="alias todoist='cd ~/Downloads/todoist-linux; make up;'\n"
+    if [ "$(duplicate-check-bashrc "todoist-linux")" ]; then
+        echo -e "$SHELL_MSG" >>~/.bashrc
     fi
-    # zsh
-    if [ "$(which zsh)" != "" ]; then
-        echo "" >>~/.zshrc
-        echo "# Todoist" >>~/.zshrc
-        echo "alias todoist='cd ~/Downloads/todoist-linux; make up;'" >>~/.zshrc
+    if [ "$(duplicate-check-zshrc "todoist-linux")" ]; then
+        echo -e "$SHELL_MSG" >>~/.zshrc
     fi
 fi
 

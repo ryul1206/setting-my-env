@@ -34,6 +34,30 @@ function already-installed() {
 # Evaluations
 ################################################
 
+function duplicate-check-bashrc() {
+    COMP=${@}
+    if [ "$(which bash)" ]; then
+        if [ "$(cat ~/.bashrc | grep "$COMP")" == "" ]; then
+            (emphasis "bash detected. No duplication occurs.") >&2
+            echo "Do"
+        else
+            (emphasis "bash detected. It has '$COMP' already. So, skipped.") >&2
+        fi
+    fi
+}
+
+function duplicate-check-zshrc() {
+    COMP=${@}
+    if [ "$(which zsh)" ]; then
+        if [ "$(cat ~/.zshrc | grep "$COMP")" == "" ]; then
+            (emphasis "zsh detected. No duplication occurs.") >&2
+            echo "Do"
+        else
+            (emphasis "zsh detected. It has '$COMP' already. So, skipped.") >&2
+        fi
+    fi
+}
+
 function is-not-exist() {
     NOW_PKG=""
     { # silent

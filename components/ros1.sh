@@ -1,9 +1,7 @@
 #!/bin/bash
 source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
 
-
 (section-separator ROS1)
-
 
 if [ "$(which roscore)" == "" ]; then
     echo ""
@@ -16,26 +14,15 @@ if [ "$(which roscore)" == "" ]; then
         sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
         sudo apt update
         sudo apt install ros-melodic-desktop-full -y
-        
-        # bash
-        if [ "$(which bash)" == "" ]; then
-            echo "(setup.bash) bash not detected. This process has been skipped."
-        else
-            echo "(setup.bash) bash detected. Setting setup.bash from ROS is complete."
-            echo "" >> ~/.bashrc
-            echo "# ROS" >> ~/.bashrc
-            echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+
+        SHELL_MSG="\n# ROS\nsource /opt/ros/melodic/setup"
+        if [ "$(duplicate-check-bashrc "melodic/setup.bash")" ]; then
+            echo -e "${SHELL_MSG}.bash\n" >>~/.bashrc
         fi
-        # zsh
-        if [ "$(which zsh)" == "" ]; then
-            echo "(setup.zsh) zsh not detected. This process has been skipped."
-        else
-            echo "(setup.zsh) zsh detected. Setting setup.zsh from ROS is complete."
-            echo "" >> ~/.zshrc
-            echo "# ROS" >> ~/.zshrc
-            echo "source /opt/ros/melodic/setup.zsh" >> ~/.zshrc
+        if [ "$(duplicate-check-zshrc "melodic/setup.zsh")" ]; then
+            echo -e "${SHELL_MSG}.zsh\n" >>~/.zshrc
         fi
-        
+
         ALL_PKGS=(
             "python-rosdep"
             "python-rosinstall"
@@ -44,7 +31,8 @@ if [ "$(which roscore)" == "" ]; then
             "build-essential"
         )
         install_packages "${ALL_PKGS[@]}"
-        
+
+        sudo apt install python-rosdep
         sudo rosdep init
         rosdep update
     fi

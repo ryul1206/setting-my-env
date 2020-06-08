@@ -11,6 +11,59 @@ fi
 BASH_FUNCTION_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master"
 source <(curl -fsSL ${BASH_FUNCTION_URL}/functions.sh)
 
+(emphasis "sudo apt update")
+sudo apt update
+(emphasis "sudo apt upgrade")
+sudo apt upgrade -y
+
+###########################################################
+(section-separator "python2.7")
+# python default를 막 바꾸면 안된다.
+# https://softwaree.tistory.com/85
+
+# https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04/
+
+if [ "$(which python2.7)" == "" ]; then
+    echo "Failed to detect 'python2.7'!"
+    echo "Are you sure you have 'python2.7'?"
+    case $(ask "Auto-installation" "Self-installation" "Skip") in
+    1)
+        (emphasis "sudo apt install python2.7 -y")
+        sudo apt install python2.7 -y
+        sudo apt install python-pip -y
+        ;;
+    2)
+        (emphasis "Ok. See you again after installation. :)")
+        exit
+        ;;
+    3)
+        (emphasis "Ok. Skip it!")
+        ;;
+    esac
+else
+    echo "You have 'python2.7' already."
+fi
+
+###########################################################
+COMPONENTS_URL="${BASH_FUNCTION_URL}/components"
+bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
+
+echo ""
+echo "[Warning] Do you want to change your 'bash' to 'zsh'?"
+echo "This will install "
+echo "It also installs zsh, oh-my-zsh, zsh-autosuggestions."
+(emphasis "If you don't know about 'zsh', DO NOT INSTALL!")
+case $(ask "Skip" "Install") in
+1) ;;
+2)
+    bash <(curl -fsSL ${COMPONENTS_URL}/zsh.sh)
+    bash <(curl -fsSL ${COMPONENTS_URL}/oh-my-zsh.sh)
+    ;;
+esac
+
+###########################################################
+bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
+
 (emphasis "Creating folders 'social-root', 'external_ws', 'catkin_ws'")
 ROOT_DIR="$HOME/social-root"
 EXTWS_SRC="$ROOT_DIR/external_ws/src"
@@ -33,124 +86,11 @@ else
     catkin_init_workspace .
 fi
 
-(emphasis "sudo apt update")
-sudo apt update
-(emphasis "sudo apt upgrade")
-sudo apt upgrade -y
+###########################################################
+source <(curl -fsSL ${COMPONENTS_URL}/coppeliasim-edu-v4.sh)
+install-coppeliaSim $ROOT_DIR
 
 ###########################################################
-(section-separator "python2.7")
-# python default를 막 바꾸면 안된다.
-# https://softwaree.tistory.com/85
-
-# https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04/
-
-if [ "$(which python2.7)" == "" ]; then
-    echo "Are you sure you have 'python2.7'?"
-    case $(ask "Auto-installation" "Self-installation" "Skip") in
-    1)
-        (emphasis "sudo apt install python2.7 -y")
-        sudo apt install python2.7 -y
-        sudo apt install python-pip -y
-        ;;
-    2)
-        (emphasis "Ok. See you again after installation. :)")
-        exit
-        ;;
-    3)
-        (emphasis "Ok. Skip it!")
-        ;;
-    esac
-else
-    echo "You have 'python2.7' already."
-fi
-
-###########################################################
-(section-separator "CoppeliaSim (a.k.a. V-REP) version.4")
-
-cd $ROOT_DIR
-TAR_NAME="CoppeliaSim_Edu_V4"
-if [ -d "$TAR_NAME" ]; then
-    echo "You have 'CoppeliaSim' already."
-else
-    echo ""
-    echo "The '$TAR_NAME' folder is not in the '$ROOT_DIR/'."
-    echo "Do you want to install 'CoppeliaSim' in the '$ROOT_DIR/'?"
-    echo "It will be installed for Ubuntu 18.04, 64 bit."
-    case $(ask "Install" "Skip") in
-    1)
-        (emphasis "Downloading (CoppeliaSim)")
-        curl -L https://www.coppeliarobotics.com/files/CoppeliaSim_Edu_V4_0_0_Ubuntu18_04.tar.xz >"$TAR_NAME.tar.xz"
-        tar xvf "$TAR_NAME.tar.xz"
-        mv "CoppeliaSim_Edu_V4_0_0_Ubuntu18_04" "$TAR_NAME"
-        rm -f "$TAR_NAME.tar.xz"
-
-        (emphasis "Installed (CoppeliaSim)")
-        echo "Would you like to register an alias command of CoppeliaSim?"
-        case $(ask "Sure" "Skip") in
-        1)
-            echo "We recommend 'vrep' as the alias name."
-            read -p '  Your alias is : ' ALIAS_NAME
-            if [ "$(which bash)" != "" ]; then
-                echo "(CoppeliaSim) bash detected."
-                EXIST=$(cat ~/.bashrc | grep $ALIAS_NAME)
-                if [ "$EXIST" == "" ]; then
-                    echo "" >>~/.bashrc
-                    echo "# CoppeliaSim" >>~/.bashrc
-                    echo "alias $ALIAS_NAME='cd $ROOT_DIR/$TAR_NAME; ./coppeliaSim.sh'" >>~/.bashrc
-                else
-                    (emphasis "[ERROR] You have some 'vrep' settings in your bash.")
-                    echo "Please, check it."
-                    case $(ask "Ok." "Exit.") in
-                    1) ;;
-                    2)
-                        exit
-                        ;;
-                    esac
-                fi
-                if [ "$0" == "bash" ]; then
-                    source ~/.bashrc
-                fi
-            fi
-            if [ "$(which zsh)" != "" ]; then
-                echo "(CoppeliaSim) zsh detected."
-                EXIST=$(cat ~/.zshrc | grep $ALIAS_NAME)
-                if [ "$EXIST" == "" ]; then
-                    echo "" >>~/.zshrc
-                    echo "# CoppeliaSim" >>~/.zshrc
-                    echo "alias $ALIAS_NAME='cd $ROOT_DIR/$TAR_NAME; ./coppeliaSim.sh'" >>~/.zshrc
-                else
-                    (emphasis "[ERROR] You have some 'vrep' settings in your zsh.")
-                    echo "Please, check it."
-                    case $(ask "Ok." "Exit.") in
-                    1) ;;
-                    2)
-                        exit
-                        ;;
-                    esac
-                fi
-                if [ "$0" == "zsh" ]; then
-                    source ~/.zshrc
-                fi
-            fi
-            ;;
-        2)
-            (emphasis "Ok. Skip it!")
-            ;;
-        esac
-        ;;
-    2)
-        (emphasis "Ok. Skip it!")
-        ;;
-    esac
-fi
-
-###########################################################
-COMPONENTS_URL="${BASH_FUNCTION_URL}/components"
-# bash <(curl -fsSL ${COMPONENTS_URL}/python.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
-
 (section-separator "ROS packages for social-robot")
 
 (subsection "Basic packages")
@@ -217,43 +157,36 @@ cmake -Wno-deprecated-declarations ..
 
 NUM_CORES=$(cat /proc/cpuinfo | grep cores | wc -l)
 NUM_BEST=$((NUM_CORES + $(printf %.0f $(echo "$NUM_CORES*0.2" | bc))))
+
 (emphasis "make -j$NUM_BEST")
 make -j$NUM_BEST
+
 (emphasis "sudo make install")
 sudo make install
 
-if [ "$(which bash)" != "" ]; then
-    echo "(GRASPIT) bash detected."
-    EXIST=$(cat ~/.bashrc | grep "LD_LIBRARY_PATH")
-    if [ "$EXIST" == "" ]; then
-        echo "# GRASPIT" >>~/.bashrc
-        echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >>~/.bashrc
-        echo "export GRASPIT=~/.graspit" >>~/.bashrc
-    fi
-    if [ "$0" == "bash" ]; then
-        source ~/.bashrc
-    fi
+SHELL_MSG="\n# GRASPIT\n"
+SHELL_MSG+="export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH\n"
+SHELL_MSG+="export GRASPIT=~/.graspit\n"
+if [ "$(duplicate-check-bashrc "GRASPIT=~/.graspit")" ]; then
+    echo -e "$SHELL_MSG" >>~/.bashrc
 fi
-if [ "$(which zsh)" == "" ]; then
-    echo "(GRASPIT) zsh detected."
-    EXIST=$(cat ~/.zshrc | grep "LD_LIBRARY_PATH")
-    if [ "$EXIST" == "" ]; then
-        echo "# GRASPIT" >>~/.zshrc
-        echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >>~/.zshrc
-        echo "export GRASPIT=~/.graspit" >>~/.zshrc
-    fi
-    if [ "$0" == "zsh" ]; then
-        source ~/.zshrc
-    fi
+if [ "$(duplicate-check-zshrc "GRASPIT=~/.graspit")" ]; then
+    echo -e "$SHELL_MSG" >>~/.zshrc
+fi
+# bash, zsh
+if [ "$0" == "bash" ]; then
+    source ~/.bashrc
+elif [ "$0" == "zsh" ]; then
+    source ~/.zshrc
 fi
 
 ###########################################################
 (section-separator "GraspIt ROS Setup")
 
 if [ "$0" == "bash" ]; then
-    source /opt/ros/melodic/setup.bashrc
+    source /opt/ros/melodic/setup.bash
 elif [ "$0" == "zsh" ]; then
-    source /opt/ros/melodic/setup.zshrc
+    source /opt/ros/melodic/setup.zsh
 fi
 
 # clone packages
@@ -263,29 +196,19 @@ safe-git-clone "https://github.com/graspit-simulator/graspit_commander.git"
 cd .. # $ROOT_DIR/external_ws
 catkin_make
 
-if [ "$(which bash)" != "" ]; then
-    echo "(GRASPIT-ROS) bash detected."
-    EXIST=$(cat ~/.bashrc | grep "social-root/external_ws/devel/setup")
-    if [ "$EXIST" == "" ]; then
-        echo "" >>~/.bashrc
-        echo "# GraspIt ROS Setup" >>~/.bashrc
-        echo "source $ROOT_DIR/external_ws/devel/setup.bash" >>~/.bashrc
-    fi
-    if [ "$0" == "bash" ]; then
-        source ~/.bashrc
-    fi
+# SHELL_MSG="\n# GraspIt ROS Setup\n"
+SHELL_MSG+="source $ROOT_DIR/external_ws/devel/setup"
+if [ "$(duplicate-check-bashrc "social-root/external_ws/devel/setup")" ]; then
+    echo -e "${SHELL_MSG}.bash\n" >>~/.bashrc
 fi
-if [ "$(which zsh)" != "" ]; then
-    echo "(GRASPIT-ROS) zsh detected."
-    EXIST=$(cat ~/.zshrc | grep "social-root/external_ws/devel/setup")
-    if [ "$EXIST" == "" ]; then
-        echo "" >>~/.zshrc
-        echo "# GraspIt ROS Setup" >>~/.zshrc
-        echo "source $ROOT_DIR/external_ws/devel/setup.zsh" >>~/.zshrc
-    fi
-    if [ "$0" == "zsh" ]; then
-        source ~/.zshrc
-    fi
+if [ "$(duplicate-check-zshrc "social-root/external_ws/devel/setup")" ]; then
+    echo -e "${SHELL_MSG}.zsh\n" >>~/.zshrc
+fi
+# bash, zsh
+if [ "$0" == "bash" ]; then
+    source ~/.bashrc
+elif [ "$0" == "zsh" ]; then
+    source ~/.zshrc
 fi
 
 ###########################################################
@@ -318,6 +241,21 @@ cd .. # $ROOT_DIR/catkin_ws
 # "List of ';' separated packages to build"
 # catkin_make -DCATKIN_BLACKLIST_PACKAGES="foo;bar"
 # catkin_make -DCATKIN_WHITELIST_PACKAGES="foo;bar"
+catkin_make -DCATKIN_WHITELIST_PACKAGES="socialrobot_hardware"
 catkin_make -DCATKIN_BLACKLIST_PACKAGES="context_manager"
 
 (emphasis "Finished!")
+# roscore
+# vrep
+#sudo service mongodb stop
+#roslaunch
+
+# drwxr-xr-x 2 hr hr  4096  6월  8 18:44 .
+# drwxr-xr-x 8 hr hr  4096  6월  8 18:31 ..
+# -rw-r--r-- 1 hr hr 11530  6월  8 18:31 arm_planner.py
+# -rw-r--r-- 1 hr hr  9497  6월  8 18:44 arm_planner.pyc
+# -rwxr-xr-x 1 hr hr  2401  6월  8 18:31 grasp_example.py
+# -rw-r--r-- 1 hr hr  8326  6월  8 18:31 grasp_planner.py
+# -rw-r--r-- 1 hr hr  7346  6월  8 18:44 grasp_planner.pyc
+# -rwxr-xr-x 1 hr hr  2304  6월  8 18:31 motionplan_node.py
+# -rwxr-xr-x 1 hr hr  3501  6월  8 18:31 push_pull_plan.py

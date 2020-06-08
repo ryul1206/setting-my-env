@@ -69,6 +69,8 @@ This shell script contains the features below:
 
 #### Evaluations
 
+- duplicate-check-bashrc
+- duplicate-check-zshrc
 - is-not-exist
   - if not exist, return 0 # true
   - else, return 1 # false
