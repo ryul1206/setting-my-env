@@ -8,7 +8,7 @@ You can initialize(or reset) your identity and default editor.
 EOM
 )
 
-(subsection "git")
+(section-separator "git")
 
 if [ "$(which git)" == "" ]; then
     sudo apt install git -y

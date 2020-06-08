@@ -69,7 +69,8 @@ fi
 (section-separator "CoppeliaSim (a.k.a. V-REP) version.4")
 
 cd $ROOT_DIR
-if [ -d "CoppeliaSim" ]; then
+TAR_NAME="CoppeliaSim_Edu_V4"
+if [ -d "$TAR_NAME" ]; then
     echo "You have 'CoppeliaSim' already."
 else
     echo ""
@@ -79,7 +80,6 @@ else
     case $(ask "Install" "Skip") in
     1)
         (emphasis "Downloading (CoppeliaSim)")
-        TAR_NAME="CoppeliaSim_Edu_V4"
         curl -L https://www.coppeliarobotics.com/files/CoppeliaSim_Edu_V4_0_0_Ubuntu18_04.tar.xz >"$TAR_NAME.tar.xz"
         tar xvf "$TAR_NAME.tar.xz"
         mv "CoppeliaSim_Edu_V4_0_0_Ubuntu18_04" "$TAR_NAME"
@@ -155,6 +155,7 @@ bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
 ALL_PKGS=(
     "ros-melodic-vision-msgs"
     "ros-melodic-moveit"
+    "ros-melodic-rosbridge-server"
 )
 apt-install "${ALL_PKGS[@]}"
 
