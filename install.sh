@@ -28,7 +28,16 @@ apt-install "${BASIC_PKGS[@]}"
 
 COMPONENTS_URL="${REPOSITORY_URL}/components"
 bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
+
+cd
+mkdir -p funs
+cd funs
+git clone https://github.com/ryul1206/welcome-page.git
+git clone https://github.com/ryul1206/setting-my-env.git
+cd
+
 bash <(curl -fsSL ${COMPONENTS_URL}/google-chrome.sh)
+bash <(curl -fsSL ${COMPONENTS_URL}/obs.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/todoist.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/gnome-desktop-item.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)

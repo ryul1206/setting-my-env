@@ -44,6 +44,7 @@ bash -c "$(wget -q -o /dev/null -O- https://raw.githubusercontent.com/ryul1206/s
    - google-chrome
    - [todoist](https://github.com/KryDos/todoist-linux) (will be installed in `~/Downloads`)
    - gnome-panel
+   - [OBS](https://obsproject.com/)
 1. others
    - ros1 (melodic)
 
