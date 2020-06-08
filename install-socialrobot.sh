@@ -39,7 +39,7 @@ sudo apt update
 sudo apt upgrade -y
 
 ###########################################################
-(section_separator "python2.7")
+(section-separator "python2.7")
 # python default를 막 바꾸면 안된다.
 # https://softwaree.tistory.com/85
 
@@ -66,7 +66,7 @@ else
 fi
 
 ###########################################################
-(section_separator "CoppeliaSim (a.k.a. V-REP) version.4")
+(section-separator "CoppeliaSim (a.k.a. V-REP) version.4")
 
 cd $ROOT_DIR
 if [ -d "CoppeliaSim" ]; then
