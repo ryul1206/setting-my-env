@@ -3,8 +3,10 @@ source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/ma
 
 (section-separator "todoist")
 
-NOW_CHROME=$(which todoist)
-if [ "$NOW_CHROME" == "" ]; then
+cd ~/Downloads
+if [ -d "todoist-linux" ]; then
+    already-installed "todoist"
+else
     # Ensure NPM is installed
     { # silent
         sudo apt install npm -y
@@ -18,22 +20,17 @@ if [ "$NOW_CHROME" == "" ]; then
     cd
 
     # bash
-    NOW_BASH=$(which bash)
-    if [ "$NOW_BASH" != "" ]; then
+    if [ "$(which bash)" != "" ]; then
         echo "" >>~/.bashrc
         echo "# Todoist" >>~/.bashrc
         echo "alias todoist='cd ~/Downloads/todoist-linux; make up;'" >>~/.bashrc
     fi
     # zsh
-    NOW_ZSH=$(which zsh)
-    if [ "$NOW_ZSH" != "" ]; then
+    if [ "$(which zsh)" != "" ]; then
         echo "" >>~/.zshrc
         echo "# Todoist" >>~/.zshrc
         echo "alias todoist='cd ~/Downloads/todoist-linux; make up;'" >>~/.zshrc
     fi
-
-else
-    already-installed "todoist"
 fi
 
 # bash, zsh

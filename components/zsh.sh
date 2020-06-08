@@ -6,8 +6,7 @@ source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/ma
 
 (subsection "zsh")
 
-NOW_ZSH=$(which zsh)
-if [ "$NOW_ZSH" == "" ]; then
+if [ "$(which zsh)" == "" ]; then
     echo "You don't have zsh."
     sudo apt install zsh -y
 else

@@ -71,10 +71,11 @@ function ask() {
 }
 
 ################################################
-# Batch: apt install
+# Install, Download, Safe Git-commands
 ################################################
 
 function apt-install() {
+    # Batch-ver. of apt install
     ### [Usage]
     # ALL_PKGS=(
     #     "pkg-A"
@@ -109,4 +110,19 @@ function apt-install() {
     echo ""
     # Bold, Ligth Green
     echo -e "\e[92mTOTAL: $count, SUCCESS: $success, FAILED: $failed \e[0m"
+}
+
+function safe-git-clone() {
+    GIT_URL=$1
+    GITFILE=${URL##*/}
+    REPO_NAME=${GITFILE%.git}
+    if [ -d "$REPO_NAME" ]; then
+        echo "Directory '$REPO_NAME' exists."
+        cd $REPO_NAME
+        (emphasis "git pull ($REPO_NAME)")
+        git pull
+        cd ..
+    else
+        git clone $GIT_URL
+    fi
 }

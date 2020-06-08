@@ -10,8 +10,7 @@ EOM
 
 (subsection "git")
 
-GIT_DIR=$(which git)
-if [ "$GIT_DIR" == "" ]; then
+if [ "$(which git)" == "" ]; then
     sudo apt install git -y
     (emphasis "[ Git ] Installation complete!")
 

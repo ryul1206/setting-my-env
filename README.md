@@ -11,7 +11,7 @@ This repository is a shell script collection for a rapid personal setting.
 2. [Importing `functions.sh`](#importing-functionssh)
       1. [Beautiful Prints](#beautiful-prints)
       2. [Evaluations](#evaluations)
-      3. [Batch: apt install](#batch-apt-install)
+      3. [Install, Download, Safe Git-commands](#install-download-safe-git-commands)
 
 
 ## Installation All
@@ -27,7 +27,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/
 ```sh
 bash -c "$(wget -q -o /dev/null -O- https://raw.githubusercontent.com/ryul1206/setting-my-env/master/install.sh)"
 ```
-<details><summary>Installation list</summary>
+<details><summary>Component List</summary>
 <p>
 
 1. basics
@@ -39,11 +39,12 @@ bash -c "$(wget -q -o /dev/null -O- https://raw.githubusercontent.com/ryul1206/s
    - zsh
      - oh-my-zsh
      - zsh-autosuggestions
+   - python
 1. utilities
    - google-chrome
    - [todoist](https://github.com/KryDos/todoist-linux) (will be installed in `~/Downloads`)
    - gnome-panel
-2. others
+1. others
    - ros1 (melodic)
 
 </p>
@@ -89,9 +90,10 @@ This shell script contains the features below:
    ```
 
 
-#### Batch: apt install
+#### Install, Download, Safe Git-commands
 
 - apt-install
+  - Batch-version of apt install
    ```sh
    ALL_PKGS=(
       "pkg-A"
@@ -100,7 +102,11 @@ This shell script contains the features below:
    )
    apt-install "${ALL_PKGS[@]}"
    ```
-
+- safe-git-clone
+  - `git pull` if the repository exists, `git clone` if not.
+   ```sh
+   safe-git-clone $GIT_URL
+   ```
 
 ---
 

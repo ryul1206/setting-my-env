@@ -2,11 +2,11 @@
 
 if [ "$(which curl)" == "" ]; then
     echo "You don't have a curl."
-    sudo apt install curl
+    sudo apt install curl -y
 fi
 if [ "$(which wget)" == "" ]; then
     echo "You don't have a wget."
-    sudo apt install wget
+    sudo apt install wget -y
 fi
 
 REPOSITORY_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master"
@@ -17,7 +17,7 @@ source <(curl -fsSL ${REPOSITORY_URL}/functions.sh)
 sudo apt update
 
 (emphasis "sudo apt upgrade")
-sudo apt upgrade
+sudo apt upgrade -y
 
 (section-separator "Basic packages")
 BASIC_PKGS=(
