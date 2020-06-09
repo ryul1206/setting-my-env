@@ -77,7 +77,7 @@ bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
 function ros-bash-update() {
     ROSSTR=$(cat ~/.bashrc | grep -n "/opt/ros/")
     LINE=${ROSSTR%%:*}
-    eval "$(cat ~/.bashrc | tail +$LINE)"
+    echo "$(cat ~/.bashrc | tail +$LINE)"
 }
 
 (emphasis "Creating folders 'social-root', 'external_ws', 'catkin_ws'")
@@ -98,7 +98,7 @@ install-coppeliaSim $ROOT_DIR
 
 ###########################################################
 (section-separator "ROS packages for social-robot")
-(ros-bash-update)
+eval "$(ros-bash-update)"
 
 (subsection "Basic packages")
 # sudo apt install ros-melodic-vision-msgs ros-melodic-rosbridge-server ros-melodic-moveit
@@ -107,6 +107,13 @@ ALL_PKGS=(
     "ros-melodic-robot-state-publisher"
     "ros-melodic-rosbridge-server"
     "ros-melodic-moveit" # others
+)
+apt-install "${ALL_PKGS[@]}"
+
+(subsection "Smach packages")
+ALL_PKGS=(
+    "ros-melodic-smach-ros"
+    "ros-melodic-smach-viewer"
 )
 apt-install "${ALL_PKGS[@]}"
 
@@ -148,7 +155,7 @@ ALL_PKGS=(
 )
 apt-install "${ALL_PKGS[@]}"
 
-(ros-bash-update)
+echo "$eval "$(ros-bash-update)""
 cd $ROOT_DIR
 safe-git-clone "https://github.com/graspit-simulator/graspit.git"
 mkdir -p graspit/build/
@@ -177,12 +184,12 @@ fi
 if [ "$(duplicate-check-zshrc "GRASPIT=~/.graspit")" ]; then
     echo -e "$SHELL_MSG" >>~/.zshrc
 fi
-(ros-bash-update)
+eval "$(ros-bash-update)"
 
 ###########################################################
 (section-separator "GraspIt ROS Setup")
 
-(ros-bash-update)
+eval "$(ros-bash-update)"
 # clone packages
 cd $EXTWS_SRC
 safe-git-clone "https://github.com/graspit-simulator/graspit_interface.git"
@@ -198,7 +205,7 @@ fi
 if [ "$(duplicate-check-zshrc "social-root/external_ws/devel/setup")" ]; then
     echo -e "${SHELL_MSG}.zsh\n" >>~/.zshrc
 fi
-(ros-bash-update)
+eval "$(ros-bash-update)"
 
 ###########################################################
 (section-separator "socialrobot repository (from GitLab)")
@@ -225,7 +232,7 @@ echo ""
 
 cd .. # $ROOT_DIR/catkin_ws
 
-(ros-bash-update)
+eval "$(ros-bash-update)"
 # "List of ';' separated packages to build"
 # catkin_make -DCATKIN_BLACKLIST_PACKAGES="foo;bar"
 # catkin_make -DCATKIN_WHITELIST_PACKAGES="foo;bar"
@@ -241,7 +248,7 @@ if [ "$(duplicate-check-zshrc "social-root/catkin_ws/devel/setup")" ]; then
     echo -e "${SHELL_MSG}.zsh\n" >>~/.zshrc
 fi
 
-(ros-bash-update)
+eval "$(ros-bash-update)"
 
 ###########################################################
 (section-separator "social_motion_planner (from GitLab)")
