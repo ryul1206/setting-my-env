@@ -95,7 +95,7 @@ install-coppeliaSim $ROOT_DIR
 # sudo apt install ros-melodic-vision-msgs ros-melodic-rosbridge-server ros-melodic-moveit
 ALL_PKGS=(
     "ros-melodic-vision-msgs"
-    "ros-melodic-ros-state-publisher"
+    "ros-melodic-robot-state-publisher"
     "ros-melodic-rosbridge-server"
     "ros-melodic-moveit" # others
 )
