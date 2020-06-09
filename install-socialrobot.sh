@@ -72,16 +72,16 @@ fi
 ###########################################################
 bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
 
-(emphasis "Creating folders 'social-root', 'external_ws', 'catkin_ws'")
+(emphasis "Creating folders 'social-root', 'catkin_ws'")
 ROOT_DIR="$HOME/social-root"
-EXTWS_SRC="$ROOT_DIR/external_ws/src"
 CTKWS_SRC="$ROOT_DIR/catkin_ws/src"
+EXTWS_SRC="$ROOT_DIR/external_ws/src"
 mkdir -p $ROOT_DIR
-mkdir -p $EXTWS_SRC
 mkdir -p $CTKWS_SRC
-cd $EXTWS_SRC
-catkin_init_workspace
+mkdir -p $EXTWS_SRC
 cd $CTKWS_SRC
+catkin_init_workspace
+cd $EXTWS_SRC
 catkin_init_workspace
 
 ###########################################################
@@ -95,6 +95,7 @@ install-coppeliaSim $ROOT_DIR
 # sudo apt install ros-melodic-vision-msgs ros-melodic-rosbridge-server ros-melodic-moveit
 ALL_PKGS=(
     "ros-melodic-vision-msgs"
+    "ros-melodic-ros-state-publisher"
     "ros-melodic-rosbridge-server"
     "ros-melodic-moveit" # others
 )
@@ -158,7 +159,7 @@ make -j$NUM_BEST
 sudo make install
 
 SHELL_MSG="\n# GRASPIT\n"
-SHELL_MSG+="export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH\n"
+SHELL_MSG+='export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH\n' # CAUTION!
 SHELL_MSG+="export GRASPIT=~/.graspit\n"
 if [ "$(duplicate-check-bashrc "GRASPIT=~/.graspit")" ]; then
     echo -e "$SHELL_MSG" >>~/.bashrc
@@ -166,22 +167,12 @@ fi
 if [ "$(duplicate-check-zshrc "GRASPIT=~/.graspit")" ]; then
     echo -e "$SHELL_MSG" >>~/.zshrc
 fi
-# bash, zsh
-if [ "$0" == "bash" ]; then
-    source ~/.bashrc
-elif [ "$0" == "zsh" ]; then
-    source ~/.zshrc
-fi
+source ~/.bashrc
 
 ###########################################################
 (section-separator "GraspIt ROS Setup")
 
-if [ "$0" == "bash" ]; then
-    source /opt/ros/melodic/setup.bash
-elif [ "$0" == "zsh" ]; then
-    source /opt/ros/melodic/setup.zsh
-fi
-
+source ~/.bashrc
 # clone packages
 cd $EXTWS_SRC
 safe-git-clone "https://github.com/graspit-simulator/graspit_interface.git"
@@ -197,12 +188,7 @@ fi
 if [ "$(duplicate-check-zshrc "social-root/external_ws/devel/setup")" ]; then
     echo -e "${SHELL_MSG}.zsh\n" >>~/.zshrc
 fi
-# bash, zsh
-if [ "$0" == "bash" ]; then
-    source ~/.bashrc
-elif [ "$0" == "zsh" ]; then
-    source ~/.zshrc
-fi
+source ~/.bashrc
 
 ###########################################################
 (section-separator "socialrobot repository (from GitLab)")
@@ -244,18 +230,57 @@ if [ "$(duplicate-check-zshrc "social-root/catkin_ws/devel/setup")" ]; then
     echo -e "${SHELL_MSG}.zsh\n" >>~/.zshrc
 fi
 # bash, zsh
-if [ "$0" == "bash" ]; then
-    source ~/.bashrc
-elif [ "$0" == "zsh" ]; then
-    source ~/.zshrc
-fi
+source ~/.bashrc
 
+###########################################################
+(section-separator "social_motion_planner (from GitLab)")
+# SNU module
 
+# (subsection "TRAC-IK Kinematics Solver")
+# sudo apt-get install ros-kinetic-trac-ik -y
 
+# (subsection "kdl_parser")
+# sudo apt-get install ros-kinetic-kdl-parser -y
 
+# (subsection "RBDL (urdf reader)")
+# cd $ROOT_DIR
+# LIB_DIR="rbdl-rbdl-849d2aee8f4c"
+# FILE_NAME="849d2aee8f4c.zip"
+# if [ -d "$LIB_DIR" ]; then
+#     already-installed "RBDL (urdf reader)"
+# else
+#     wget "https://bitbucket.org/rbdl/rbdl/get/$FILE_NAME"
+#     unzip $FILE_NAME
+#     mkdir -p $LIB_DIR/build/
+#     cd $LIB_DIR/build/
 
+#     cmake -D RBDL_BUILD_ADDON_URDFREADER=ON ..
+#     make all
+#     sudo make install
 
+#     cd $ROOT_DIR
+#     rm $FILE_NAME
+# fi
 
+# # boost?
+# # egien?
+
+# (subsection "Trajectory Smoothing Library")
+# cd $ROOT_DIR
+# LIB_DIR="trajectory_smoothing"
+# if [ -d "$LIB_DIR" ]; then
+#     echo "Directory '$LIB_DIR' exists."
+# else
+#     git clone "https://github.com/ggory15/${LIB_DIR}.git" --recursive
+# fi
+# cd $LIB_DIR
+# git submodule update --recursive --remote
+# mkdir -p build && cd build
+# cmake ..
+# make
+# sudo make install
+
+###########################################################
 (emphasis "Finished!")
 # roscore
 # vrep
@@ -271,3 +296,17 @@ fi
 # -rw-r--r-- 1 hr hr  7346  6월  8 18:44 grasp_planner.pyc
 # -rwxr-xr-x 1 hr hr  2304  6월  8 18:31 motionplan_node.py
 # -rwxr-xr-x 1 hr hr  3501  6월  8 18:31 push_pull_plan.py
+# ----------------------------------------------------------------------------------------------
+# ERROR: cannot launch node of type [socialrobot_motion/motionplan_node]:
+# Cannot locate node of type [motionplan_node] in package [socialrobot_motion].
+# Make sure file exists in package path and permission is set to executable (chmod +x)
+
+# ----------------------------------------------------------------------------------------------
+# [motion_plan_python-17] process has died [pid 19137, exit code 1,
+# cmd /home/hr/social-root/catkin_ws/src/socialrobot/src/socialrobot_motion/script/motionplan_node.py
+# __name:=motion_plan_python __log:=/home/hr/.ros/log/2ceeb478-a9a4-11ea-b860-7085c2749524/motion_plan_python-17.log].
+# log file: /home/hr/.ros/log/2ceeb478-a9a4-11ea-b860-7085c2749524/motion_plan_python-17*.log
+
+# source order is Important!!
+# first, catkin_ws
+# second, external_ws

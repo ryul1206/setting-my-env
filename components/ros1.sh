@@ -15,13 +15,15 @@ if [ "$(which roscore)" == "" ]; then
         sudo apt update
         sudo apt install ros-melodic-desktop-full -y
 
-        SHELL_MSG="\n# ROS\nsource /opt/ros/melodic/setup"
+        SHELL_MSG="\n# ROS\nsource /opt/ros/melodic/setup"        
         if [ "$(duplicate-check-bashrc "melodic/setup.bash")" ]; then
             echo -e "${SHELL_MSG}.bash\n" >>~/.bashrc
         fi
         if [ "$(duplicate-check-zshrc "melodic/setup.zsh")" ]; then
             echo -e "${SHELL_MSG}.zsh\n" >>~/.zshrc
         fi
+        
+        source /opt/ros/melodic/setup.bash
 
         ALL_PKGS=(
             "python-rosdep"
@@ -40,11 +42,4 @@ if [ "$(which roscore)" == "" ]; then
 else
     already-installed "ROS1"
     echo "Your ROS version is $NOW_ROS"
-fi
-
-# bash, zsh
-if [ "$0" == "bash" ]; then
-    source ~/.bashrc
-elif [ "$0" == "zsh" ]; then
-    source ~/.zshrc
 fi

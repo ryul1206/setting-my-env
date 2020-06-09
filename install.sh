@@ -19,14 +19,11 @@ sudo apt update
 (emphasis "sudo apt upgrade")
 sudo apt upgrade -y
 
-(section-separator "Basic packages")
-BASIC_PKGS=(
-    "vim"
-    "npm"
-)
-apt-install "${BASIC_PKGS[@]}"
+(section-separator "vim")
+sudo apt install vim -y
 
 COMPONENTS_URL="${REPOSITORY_URL}/components"
+bash <(curl -fsSL ${COMPONENTS_URL}/nodejs.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
 git config --global credential.helper "cache --timeout 600" # sec
 
@@ -40,7 +37,7 @@ cd
 bash <(curl -fsSL ${COMPONENTS_URL}/vscode.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/google-chrome.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/obs.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/todoist.sh)
+bash <(curl -fsSL ${COMPONENTS_URL}/todoist.sh)  # depends on nodejs
 bash <(curl -fsSL ${COMPONENTS_URL}/gnome-desktop-item.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/zsh.sh)
