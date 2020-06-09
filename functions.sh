@@ -138,7 +138,7 @@ function apt-install() {
 
 function safe-git-clone() {
     GIT_URL=$1
-    GITFILE=${URL##*/}
+    GITFILE=${GIT_URL##*/}
     REPO_NAME=${GITFILE%.git}
     if [ -d "$REPO_NAME" ]; then
         echo "Directory '$REPO_NAME' exists."

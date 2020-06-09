@@ -72,16 +72,24 @@ fi
 ###########################################################
 bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
 
-(emphasis "Creating folders 'social-root', 'catkin_ws'")
+# https://stackoverflow.com/questions/43659084/source-bashrc-in-a-script-not-working
+# source ~/.bashrc  << NOT WORKING!!
+function ros-bash-update() {
+    ROSSTR=$(cat ~/.bashrc | grep -n "/opt/ros/")
+    LINE=${ROSSTR%%:*}
+    eval "$(cat ~/.bashrc | tail +$LINE)"
+}
+
+(emphasis "Creating folders 'social-root', 'external_ws', 'catkin_ws'")
 ROOT_DIR="$HOME/social-root"
-CTKWS_SRC="$ROOT_DIR/catkin_ws/src"
 EXTWS_SRC="$ROOT_DIR/external_ws/src"
+CTKWS_SRC="$ROOT_DIR/catkin_ws/src"
 mkdir -p $ROOT_DIR
-mkdir -p $CTKWS_SRC
 mkdir -p $EXTWS_SRC
-cd $CTKWS_SRC
-catkin_init_workspace
+mkdir -p $CTKWS_SRC
 cd $EXTWS_SRC
+catkin_init_workspace
+cd $CTKWS_SRC
 catkin_init_workspace
 
 ###########################################################
@@ -90,6 +98,7 @@ install-coppeliaSim $ROOT_DIR
 
 ###########################################################
 (section-separator "ROS packages for social-robot")
+(ros-bash-update)
 
 (subsection "Basic packages")
 # sudo apt install ros-melodic-vision-msgs ros-melodic-rosbridge-server ros-melodic-moveit
@@ -139,6 +148,7 @@ ALL_PKGS=(
 )
 apt-install "${ALL_PKGS[@]}"
 
+(ros-bash-update)
 cd $ROOT_DIR
 safe-git-clone "https://github.com/graspit-simulator/graspit.git"
 mkdir -p graspit/build/
@@ -167,12 +177,12 @@ fi
 if [ "$(duplicate-check-zshrc "GRASPIT=~/.graspit")" ]; then
     echo -e "$SHELL_MSG" >>~/.zshrc
 fi
-source ~/.bashrc
+(ros-bash-update)
 
 ###########################################################
 (section-separator "GraspIt ROS Setup")
 
-source ~/.bashrc
+(ros-bash-update)
 # clone packages
 cd $EXTWS_SRC
 safe-git-clone "https://github.com/graspit-simulator/graspit_interface.git"
@@ -188,7 +198,7 @@ fi
 if [ "$(duplicate-check-zshrc "social-root/external_ws/devel/setup")" ]; then
     echo -e "${SHELL_MSG}.zsh\n" >>~/.zshrc
 fi
-source ~/.bashrc
+(ros-bash-update)
 
 ###########################################################
 (section-separator "socialrobot repository (from GitLab)")
@@ -215,6 +225,7 @@ echo ""
 
 cd .. # $ROOT_DIR/catkin_ws
 
+(ros-bash-update)
 # "List of ';' separated packages to build"
 # catkin_make -DCATKIN_BLACKLIST_PACKAGES="foo;bar"
 # catkin_make -DCATKIN_WHITELIST_PACKAGES="foo;bar"
@@ -229,8 +240,8 @@ fi
 if [ "$(duplicate-check-zshrc "social-root/catkin_ws/devel/setup")" ]; then
     echo -e "${SHELL_MSG}.zsh\n" >>~/.zshrc
 fi
-# bash, zsh
-source ~/.bashrc
+
+(ros-bash-update)
 
 ###########################################################
 (section-separator "social_motion_planner (from GitLab)")
