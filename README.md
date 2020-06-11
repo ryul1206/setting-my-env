@@ -5,53 +5,16 @@ This repository is a shell script collection for a rapid personal setting.
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ryul1206/setting-my-env.svg)
 ![GitHub](https://img.shields.io/github/license/ryul1206/setting-my-env.svg)
 
-1. [Installation All](#installation-all)
-      1. [via curl](#via-curl)
-      2. [via wget](#via-wget)
-2. [Importing `functions.sh`](#importing-functionssh)
+1. [Importing `functions.sh`](#importing-functionssh)
       1. [Beautiful Prints](#beautiful-prints)
       2. [Evaluations](#evaluations)
       3. [Install, Download, Safe Git-commands](#install-download-safe-git-commands)
-
-
-## Installation All
-
-#### via curl
-
-```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/install.sh)"
-```
-
-#### via wget
-
-```sh
-bash -c "$(wget -q -o /dev/null -O- https://raw.githubusercontent.com/ryul1206/setting-my-env/master/install.sh)"
-```
-<details><summary>Component List</summary>
-<p>
-
-1. basics
-   - git
-   - vim 
-   - npm
-   - curl
-   - wget
-   - zsh
-     - oh-my-zsh
-     - zsh-autosuggestions
-   - python
-1. utilities
-   - vscode
-   - google-chrome
-   - [todoist](https://github.com/KryDos/todoist-linux) (will be installed in `~/Downloads`)
-   - gnome-panel
-   - [OBS](https://obsproject.com/)
-2. others
-   - ros1 (melodic)
-
-</p>
-</details>
-
+2. [Installation Example](#installation-example)
+   1. [Install one component](#install-one-component)
+      1. [curl example](#curl-example)
+   2. [Meta-installation](#meta-installation)
+      1. [via curl](#via-curl)
+      2. [via wget](#via-wget)
 
 ## Importing `functions.sh`
 
@@ -111,6 +74,58 @@ This shell script contains the features below:
    ```sh
    safe-git-clone $GIT_URL
    ```
+
+
+## Installation Example
+
+### Install one component
+
+#### curl example
+
+```sh
+COMPONENTS_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master/components"
+bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
+```
+
+### Meta-installation
+
+#### via curl
+
+```sh
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/install.sh)"
+```
+
+#### via wget
+
+```sh
+bash -c "$(wget -q -o /dev/null -O- https://raw.githubusercontent.com/ryul1206/setting-my-env/master/install.sh)"
+```
+<details><summary>Component List</summary>
+<p>
+
+1. basics
+   - git
+   - vim 
+   - npm
+   - curl
+   - wget
+   - zsh
+     - oh-my-zsh
+     - zsh-autosuggestions
+   - python
+3. utilities
+   - vscode
+   - slack
+   - google-chrome
+   - [todoist](https://github.com/KryDos/todoist-linux) (will be installed in `~/Downloads`)
+   - gnome-panel
+   - [OBS](https://obsproject.com/)
+4. others
+   - ros1 (melodic)
+
+</p>
+</details>
+
 
 ---
 
