@@ -41,10 +41,11 @@ function already-installed() {
 # echo "goood"
 function spinner() {
   local i sp n
-  sp='/-\|'
+  # sp='/-\|'
+  sp='⠇⠋⠙⠸⠴⠦'
   n=${#sp}
   printf ' '
-  while sleep 0.2; do
+  while sleep 0.1; do
     printf "%s\b" "${sp:i++%n:1}"
   done
 }
