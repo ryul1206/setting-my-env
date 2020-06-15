@@ -19,8 +19,8 @@ sudo apt update
 (emphasis "sudo apt upgrade")
 sudo apt upgrade -y
 
-(section-separator "vim")
-sudo apt install vim -y
+# (section-separator "vim")
+sudo apt install vim kazam -y
 
 COMPONENTS_URL="${REPOSITORY_URL}/components"
 bash <(curl -fsSL ${COMPONENTS_URL}/nodejs.sh)

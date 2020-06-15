@@ -169,7 +169,7 @@ cmake -Wno-deprecated-declarations ..
 NUM_CORES=$(cat /proc/cpuinfo | grep cores | wc -l)
 NUM_BEST=$((NUM_CORES + $(printf %.0f $(echo "$NUM_CORES*0.2" | bc))))
 
-(emphasis "make -j$NUM_BEST")
+(emphasis "make -j$NUM_BEST (Since you have $NUM_CORES cores.)")
 make -j$NUM_BEST
 
 (emphasis "sudo make install")
@@ -251,80 +251,8 @@ fi
 eval "$(ros-bash-update)"
 
 ###########################################################
-(section-separator "social_motion_planner (from GitLab)")
-# SNU module
-
-# (subsection "TRAC-IK Kinematics Solver")
-# sudo apt-get install ros-kinetic-trac-ik -y
-
-# (subsection "kdl_parser")
-# sudo apt-get install ros-kinetic-kdl-parser -y
-
-# (subsection "RBDL (urdf reader)")
-# cd $ROOT_DIR
-# LIB_DIR="rbdl-rbdl-849d2aee8f4c"
-# FILE_NAME="849d2aee8f4c.zip"
-# if [ -d "$LIB_DIR" ]; then
-#     already-installed "RBDL (urdf reader)"
-# else
-#     wget "https://bitbucket.org/rbdl/rbdl/get/$FILE_NAME"
-#     unzip $FILE_NAME
-#     mkdir -p $LIB_DIR/build/
-#     cd $LIB_DIR/build/
-
-#     cmake -D RBDL_BUILD_ADDON_URDFREADER=ON ..
-#     make all
-#     sudo make install
-
-#     cd $ROOT_DIR
-#     rm $FILE_NAME
-# fi
-
-# # boost?
-# # egien?
-
-# (subsection "Trajectory Smoothing Library")
-# cd $ROOT_DIR
-# LIB_DIR="trajectory_smoothing"
-# if [ -d "$LIB_DIR" ]; then
-#     echo "Directory '$LIB_DIR' exists."
-# else
-#     git clone "https://github.com/ggory15/${LIB_DIR}.git" --recursive
-# fi
-# cd $LIB_DIR
-# git submodule update --recursive --remote
-# mkdir -p build && cd build
-# cmake ..
-# make
-# sudo make install
-
-###########################################################
 (emphasis "Finished!")
 # roscore
 # vrep
 #sudo service mongodb stop
 #roslaunch
-
-# drwxr-xr-x 2 hr hr  4096  6월  8 18:44 .
-# drwxr-xr-x 8 hr hr  4096  6월  8 18:31 ..
-# -rw-r--r-- 1 hr hr 11530  6월  8 18:31 arm_planner.py
-# -rw-r--r-- 1 hr hr  9497  6월  8 18:44 arm_planner.pyc
-# -rwxr-xr-x 1 hr hr  2401  6월  8 18:31 grasp_example.py
-# -rw-r--r-- 1 hr hr  8326  6월  8 18:31 grasp_planner.py
-# -rw-r--r-- 1 hr hr  7346  6월  8 18:44 grasp_planner.pyc
-# -rwxr-xr-x 1 hr hr  2304  6월  8 18:31 motionplan_node.py
-# -rwxr-xr-x 1 hr hr  3501  6월  8 18:31 push_pull_plan.py
-# ----------------------------------------------------------------------------------------------
-# ERROR: cannot launch node of type [socialrobot_motion/motionplan_node]:
-# Cannot locate node of type [motionplan_node] in package [socialrobot_motion].
-# Make sure file exists in package path and permission is set to executable (chmod +x)
-
-# ----------------------------------------------------------------------------------------------
-# [motion_plan_python-17] process has died [pid 19137, exit code 1,
-# cmd /home/hr/social-root/catkin_ws/src/socialrobot/src/socialrobot_motion/script/motionplan_node.py
-# __name:=motion_plan_python __log:=/home/hr/.ros/log/2ceeb478-a9a4-11ea-b860-7085c2749524/motion_plan_python-17.log].
-# log file: /home/hr/.ros/log/2ceeb478-a9a4-11ea-b860-7085c2749524/motion_plan_python-17*.log
-
-# source order is Important!!
-# first, catkin_ws
-# second, external_ws
