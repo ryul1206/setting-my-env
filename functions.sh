@@ -41,12 +41,13 @@ function already-installed() {
 # echo "goood"
 function spinner() {
   local i sp n
-  tput civis
+  # tput civis
   sp='⠇⠋⠙⠸⠴⠦'
+  #sp='⠇⠏⠹⠸⠼⠧'
   n=${#sp}
   while sleep 0.1; do
     printf "%s\b" "${sp:i++%n:1}"
-  tput cnorm
+  # tput cnorm
   done
 }
 
@@ -132,18 +133,19 @@ function apt-install() {
     for PKG_NAME in "${pkgs[@]}"; do
         count=$(($count + 1))
         if is-not-exist $PKG_NAME; then
+            sudo tput civis
             printf '\e[93m%-6s\e[0m' "Now installing [ $PKG_NAME ]... "
-            spinner &
-            spinner_pid=$!
+            spinner & spinner_pid=$!       
             { # silent
                 sudo apt install $PKG_NAME -y
                 kill $spinner_pid
             } &>/dev/null
+            tput cnorm
             if is-not-exist $PKG_NAME; then
                 failed=$(($failed + 1))
                 # Light red
                 printf '\e[91m%-6s\e[0m\n' " Failed. ($failed)"
-            else
+            elsesud
                 printf '\e[92m%-6s\e[0m\n' " Success."
             fi
         else
