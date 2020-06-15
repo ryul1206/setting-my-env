@@ -41,12 +41,12 @@ function already-installed() {
 # echo "goood"
 function spinner() {
   local i sp n
-  # sp='/-\|'
+  tput civis
   sp='⠇⠋⠙⠸⠴⠦'
   n=${#sp}
-  printf ' '
   while sleep 0.1; do
     printf "%s\b" "${sp:i++%n:1}"
+  tput cnorm
   done
 }
 
