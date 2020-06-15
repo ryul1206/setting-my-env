@@ -1,0 +1,13 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Icon[en_US]=/home/hr/funs/setting-my-env/icons/heart.png
+Name[en_US]=Welcome-page.desktop
+Exec=google-chrome /home/hr/funs/welcome-page/index.html
+Comment[en_US]=Welcome page
+Name=\sWelcome-page
+Comment=Welcome page
+Icon=/home/hr/Pictures/icons/heart.png

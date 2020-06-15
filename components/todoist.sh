@@ -2,10 +2,11 @@
 source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
 
 (section-separator "todoist")
-# https://github.com/KryDos/todoist-linux
 
-NOW_CHROME=$(which todoist)
-if [ "$NOW_CHROME" == "" ]; then
+cd ~/Downloads
+if [ -d "todoist-linux" ]; then
+    already-installed "todoist"
+else
     # Ensure NPM is installed
     { # silent
         sudo apt install npm -y
@@ -13,28 +14,19 @@ if [ "$NOW_CHROME" == "" ]; then
 
     # Install Todoist wrapper
     cd ~/Downloads
-    git clone https://github.com/krydos/todoist-linux
+    git clone https://github.com/KryDos/todoist-linux.git
     cd todoist-linux
     make env
     cd
 
-    # bash
-    NOW_BASH=$(which bash)
-    if [ "$NOW_BASH" != "" ]; then
-        echo "" >>~/.bashrc
-        echo "# Todoist" >>~/.bashrc
-        echo "alias todoist='cd ~/Downloads/todoist-linux; make up;'" >>~/.bashrc
+    SHELL_MSG="\n# Todoist\n"
+    SHELL_MSG+="alias todoist='cd ~/Downloads/todoist-linux; make up;'\n"
+    if [ "$(duplicate-check-bashrc "todoist-linux")" ]; then
+        echo -e "$SHELL_MSG" >>~/.bashrc
     fi
-    # zsh
-    NOW_ZSH=$(which zsh)
-    if [ "$NOW_ZSH" != "" ]; then
-        echo "" >>~/.zshrc
-        echo "# Todoist" >>~/.zshrc
-        echo "alias todoist='cd ~/Downloads/todoist-linux; make up;'" >>~/.zshrc
+    if [ "$(duplicate-check-zshrc "todoist-linux")" ]; then
+        echo -e "$SHELL_MSG" >>~/.zshrc
     fi
-
-else
-    already-installed "todoist"
 fi
 
 # bash, zsh
