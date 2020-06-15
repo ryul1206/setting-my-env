@@ -30,6 +30,27 @@ function already-installed() {
     echo "You have [ $1 ] already."
 }
 
+### EXAMPLE
+# printf 'Doing important work '
+# spinner &
+# spinner_pid=$!
+# sleep 5  # sleeping for 10 seconds is important work
+# #kill "$!" # kill the spinner
+# (kill $spinner_pid)&>/dev/null
+# printf '\n'
+# echo "goood"
+function spinner() {
+  local i sp n
+  # tput civis
+  sp='⠇⠋⠙⠸⠴⠦'
+  #sp='⠇⠏⠹⠸⠼⠧'
+  n=${#sp}
+  while sleep 0.1; do
+    printf "%s\b" "${sp:i++%n:1}"
+  # tput cnorm
+  done
+}
+
 ################################################
 # Evaluations
 ################################################
@@ -75,7 +96,6 @@ function ask() {
     # echo -e "${QUESTION}"
     # OPTIONS=${@:(-$# + 1)}
     OPTIONS=${@}
-
     ((answer = 0))
     select input in $OPTIONS; do
         ((count = 0))
@@ -107,23 +127,26 @@ function apt-install() {
     #     "pkg-C"
     # )
     # apt-install "${ALL_PKGS[@]}"
-
     pkgs=("$@")
     count=0
     failed=0
     for PKG_NAME in "${pkgs[@]}"; do
         count=$(($count + 1))
         if is-not-exist $PKG_NAME; then
+            sudo tput civis
             printf '\e[93m%-6s\e[0m' "Now installing [ $PKG_NAME ]... "
+            spinner & spinner_pid=$!       
             { # silent
                 sudo apt install $PKG_NAME -y
+                kill $spinner_pid
             } &>/dev/null
+            tput cnorm
             if is-not-exist $PKG_NAME; then
                 failed=$(($failed + 1))
                 # Light red
-                printf '\e[91m%-6s\e[0m\n' "Failed. ($failed)"
-            else
-                printf '\e[92m%-6s\e[0m\n' "Success."
+                printf '\e[91m%-6s\e[0m\n' " Failed. ($failed)"
+            elsesud
+                printf '\e[92m%-6s\e[0m\n' " Success."
             fi
         else
             already-installed $PKG_NAME
