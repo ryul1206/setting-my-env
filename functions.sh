@@ -173,3 +173,29 @@ function safe-git-clone() {
         git clone $GIT_URL
     fi
 }
+
+
+################################################
+# OpenVPN
+################################################
+
+function new-client() {
+    OVPN_IP=$1
+    OVPN_PORT=$2
+    CLIENTNAME=$3
+    
+    if [ "${OVPN_IP}" ] && [ "${OVPN_PORT}" ] && [ "${CLIENTNAME}" ]; then
+        (emphasis "Generate a client certificate")
+        docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kylemanna/openvpn easyrsa build-client-full ${CLIENTNAME} nopass
+
+        (emphasis "Retrieve the client configuration with embedded certificates")
+        docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kylemanna/openvpn ovpn_getclient ${CLIENTNAME} > ${CLIENTNAME}.ovpn
+
+        (emphasis "Fix the host port from ${CLIENTNAME}.ovpn")
+        sed -i 's/remote ${OVPN_IP} 1194/remote ${OVPN_IP} ${OVPN_PORT}/g' ${CLIENTNAME}.ovpn
+
+        (emphasis "Done! Enjoy~")
+    else
+        (emphasis "Wrong Input Args! (Usage) new-client <OVPN_IP> <OVPN_PORT> <CLIENTNAME>")
+    fi
+}
