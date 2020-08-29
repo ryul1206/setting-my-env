@@ -192,7 +192,7 @@ function new-client() {
         docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kylemanna/openvpn ovpn_getclient ${CLIENTNAME} > ${CLIENTNAME}.ovpn
 
         (emphasis "Fix the host port from ${CLIENTNAME}.ovpn")
-        sed -i 's/remote ${OVPN_IP} 1194/remote ${OVPN_IP} ${OVPN_PORT}/g' ${CLIENTNAME}.ovpn
+        sed -i "'s/remote ${OVPN_IP} 1194/remote ${OVPN_IP} ${OVPN_PORT}/g" ${CLIENTNAME}.ovpn
 
         (emphasis "Done! Enjoy~")
     else
