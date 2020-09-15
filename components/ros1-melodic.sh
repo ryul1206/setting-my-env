@@ -5,7 +5,7 @@ source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/ma
 
 if [ "$(which roscore)" == "" ]; then
     echo ""
-    echo "This script is for the ROS1 Melodic Desktop-Full."
+    echo "This script is for the ROS1 Melodic Desktop (not full)."
     echo "Do you wish to install this program?"
 
     ANSWER=$(ask "Yes" "No")
