@@ -69,8 +69,7 @@ safe-git-clone "https://gitlab.com/social-robot/socialrobot_motion_planner.git"
 cd ..
 
 # We recommand building msg first.
+catkin_make -DCATKIN_WHITELIST_PACKAGES="social_robot_description_snu"
 catkin_make -DCATKIN_WHITELIST_PACKAGES="mobile_manipulator_controller"
 catkin_make -DCATKIN_WHITELIST_PACKAGES="mobile_manipulator_controller"
 catkin_make -DCATKIN_WHITELIST_PACKAGES="mobile_motion_planner;arm_motion_planner"
-
-
