@@ -37,7 +37,7 @@ cd
 bash <(curl -fsSL ${COMPONENTS_URL}/vscode.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/google-chrome.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/obs.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/todoist.sh)  # depends on nodejs
+# bash <(curl -fsSL ${COMPONENTS_URL}/todoist.sh)  # depends on nodejs
 bash <(curl -fsSL ${COMPONENTS_URL}/gnome-desktop-item.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/zsh.sh)

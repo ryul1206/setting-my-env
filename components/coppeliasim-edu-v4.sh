@@ -1,6 +1,10 @@
 #!/bin/bash
 source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
 
+# ===== USAGE =====
+# source <(curl -fsSL ${COMPONENTS_URL}/coppeliasim-edu-v4.sh)
+# install-coppeliaSim $ROOT_DIR
+
 (section-separator "CoppeliaSim (a.k.a. V-REP) version.4")
 
 function install-coppeliaSim() {

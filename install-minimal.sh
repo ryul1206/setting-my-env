@@ -22,7 +22,6 @@ sudo apt upgrade
 (section-separator "Basic packages")
 BASIC_PKGS=(
     "vim"
-    "npm"
 )
 apt-install "${BASIC_PKGS[@]}"
 
