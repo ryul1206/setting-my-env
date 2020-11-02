@@ -319,6 +319,12 @@ catkin_make -DCATKIN_WHITELIST_PACKAGES="mobile_manipulator_controller"
 catkin_make -DCATKIN_WHITELIST_PACKAGES="mobile_motion_planner;arm_motion_planner"
 
 ###########################################################
+(section-separator "socialrobot repository (from GitLab)")
+
+cd $ROOT_DIR
+safe-git-clone "https://gitlab.com/social-robot/base-environment.git"
+
+###########################################################
 (emphasis "Finished!")
 # roscore
 # vrep
