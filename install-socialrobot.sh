@@ -237,6 +237,11 @@ safe-git-clone "https://github.com/ROBOTIS-GIT/robotis_manipulator.git"
 cd ..
 catkin_make
 
+(emphasis "robocare repo.")
+cd $CTKWS_SRC
+safe-git-clone "https://gitlab.com/social-robot/robocare.git"
+cd ..
+catkin_make
 
 ###########################################################
 (section-separator "socialrobot repository (from GitLab)")
