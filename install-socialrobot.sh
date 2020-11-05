@@ -220,6 +220,7 @@ cd ..
 catkin_make
 
 (emphasis "External pkgs(3/5): dynamixel-workbench")
+sudo apt install ros-melodic-cmake-modules
 cd $EXTWS_SRC
 safe-git-clone "https://github.com/ROBOTIS-GIT/dynamixel-workbench.git"
 cd ..
