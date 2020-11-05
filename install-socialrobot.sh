@@ -309,7 +309,7 @@ ln -s $LINKING_SOURCE $LINKING_TARGET
 
 (subsection "socialrobot_motion_planner")
 cd $ROOT_DIR/catkin_ws/src
-# safe-git-clone "https://gitlab.com/social-robot/socialrobot_motion_planner.git"
+safe-git-clone "https://gitlab.com/social-robot/socialrobot_motion_planner.git"
 cd ..
 
 # We recommand building msg first.
