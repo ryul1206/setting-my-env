@@ -239,6 +239,7 @@ cd ..
 catkin_make
 
 (emphasis "robocare repo.")
+sudo apt-get install ros-melodic-laser-proc
 cd $CTKWS_SRC
 safe-git-clone "https://gitlab.com/social-robot/robocare.git"
 cd ..
@@ -246,6 +247,10 @@ catkin_make
 
 ###########################################################
 (section-separator "socialrobot repository (from GitLab)")
+
+sudo apt install ros-melodic-urg-c
+sudo apt install ros-melodic-eigen-conversions
+sudo apt install ros-melodic-roslint
 
 cd $CTKWS_SRC
 # Now, $ROOT_DIR/catkin_ws/src
