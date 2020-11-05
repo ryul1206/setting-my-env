@@ -208,6 +208,37 @@ fi
 eval "$(ros-bash-update)"
 
 ###########################################################
+(section-separator "robocare description (from GitLab)")
+
+(emphasis "External pkgs(1/5): Dynamixel SDK")
+sudo apt-get install ros-melodic-dynamixel-sdk
+
+(emphasis "External pkgs(2/5): dynamixel-workbench-msgs")
+cd $EXTWS_SRC
+safe-git-clone "https://github.com/ROBOTIS-GIT/dynamixel-workbench-msgs.git"
+cd ..
+catkin_make
+
+(emphasis "External pkgs(3/5): dynamixel-workbench")
+cd $EXTWS_SRC
+safe-git-clone "https://github.com/ROBOTIS-GIT/dynamixel-workbench.git"
+cd ..
+catkin_make
+
+(emphasis "External pkgs(4/5): industrial_core")
+cd $EXTWS_SRC
+safe-git-clone "https://github.com/ros-industrial/industrial_core.git"
+cd ..
+catkin_make
+
+(emphasis "External pkgs(5/5): robotis_manipulator")
+cd $EXTWS_SRC
+safe-git-clone "https://github.com/ROBOTIS-GIT/robotis_manipulator.git"
+cd ..
+catkin_make
+
+
+###########################################################
 (section-separator "socialrobot repository (from GitLab)")
 
 cd $CTKWS_SRC
