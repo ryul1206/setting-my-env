@@ -70,7 +70,7 @@ else
 fi
 
 ###########################################################
-bash <(curl -fsSL ${COMPONENTS_URL}/ros1.sh)
+bash <(curl -fsSL ${COMPONENTS_URL}/ros1-melodic-full.sh)
 
 # https://stackoverflow.com/questions/43659084/source-bashrc-in-a-script-not-working
 # source ~/.bashrc  << NOT WORKING!!
