@@ -130,7 +130,6 @@ ALL_PKGS=(
     "flex"
     "freeglut3-dev"
     "ros-melodic-navigation"
-    "ros-melodic-rosjava" # melodic rosjava.
     "ros-melodic-move-base"
     "ros-melodic-move-base-msgs"
     "ros-melodic-nav-msgs"
@@ -138,6 +137,62 @@ ALL_PKGS=(
     "ros-melodic-mongodb-store"
 )
 apt-install "${ALL_PKGS[@]}"
+
+cd $EXTWS_SRC
+safe-git-clone "https://github.com/rosjava/rosjava_build_tools.git"
+safe-git-clone "https://github.com/rosjava/rosjava_core.git"
+safe-git-clone "https://github.com/rosjava/rosjava_test_msgs.git"
+cd ..
+
+(subsection "rosjava_build_tools packages")
+catkin_make -DCATKIN_WHITELIST_PACKAGES="rosjava_build_tools"
+(subsection "rosjava-core packages")
+catkin_make -DCATKIN_WHITELIST_PACKAGES="rosjava_core"
+(subsection "rosjava_test_msgs packages")
+catkin_make -DCATKIN_WHITELIST_PACKAGES="rosjava_test_msgs"
+
+
+(subsection "genjava packages")
+cd $EXTWS_SRC
+safe-git-clone "https://github.com/rosjava/genjava.git"
+cd genjava
+git checkout melodic
+cd ../..
+catkin_make -DCATKIN_WHITELIST_PACKAGES="genjava"
+
+(subsection "rosjava_messages packages")
+ALL_PKGS=(
+    "openjdk-8-jdk"
+    "ros-melodic-std-msgs"
+    "ros-melodic-actionlib-msgs"
+    "ros-melodic-diagnostic-msgs"
+    "ros-melodic-geometry-msgs"
+    "ros-melodic-move-base-msgs"
+    "ros-melodic-nav-msgs"
+    "ros-melodic-rosgraph-msgs"
+    "ros-melodic-shape-msgs"
+    "ros-melodic-std-srvs"
+    "ros-melodic-tf2-msgs"
+    "ros-melodic-trajectory-msgs"
+    "ros-melodic-visualization-msgs"
+    "ros-melodic-roscpp"
+    "ros-melodic-sensor-msgs"
+    "ros-melodic-stereo-msgs"
+)
+apt-install "${ALL_PKGS[@]}"
+cd $EXTWS_SRC
+safe-git-clone "https://github.com/rosjava/rosjava_messages.git"
+cd ..
+catkin_make -DCATKIN_WHITELIST_PACKAGES="rosjava_messages"
+
+(subsection "rosjava packages")
+cd $EXTWS_SRC
+safe-git-clone "https://github.com/rosjava/rosjava.git"
+cd rosjava
+git checkout melodic
+cd ../..
+catkin_make -DCATKIN_WHITELIST_PACKAGES="rosjava"
+
 
 ###########################################################
 (section-separator "GraspIt Library")
@@ -210,33 +265,92 @@ eval "$(ros-bash-update)"
 ###########################################################
 (section-separator "robocare description (from GitLab)")
 
-(emphasis "External pkgs(1/5): Dynamixel SDK")
-sudo apt-get install ros-melodic-dynamixel-sdk
+# (emphasis "External pkgs(1/5): Dynamixel SDK")
+# sudo apt-get install ros-melodic-dynamixel-sdk
 
-(emphasis "External pkgs(2/5): dynamixel-workbench-msgs")
-cd $EXTWS_SRC
-safe-git-clone "https://github.com/ROBOTIS-GIT/dynamixel-workbench-msgs.git"
-cd ..
-catkin_make
+# (emphasis "External pkgs(2/5): dynamixel-workbench-msgs")
+# cd $EXTWS_SRC
+# safe-git-clone "https://github.com/ROBOTIS-GIT/dynamixel-workbench-msgs.git"
+# cd ..
+# catkin_make
 
-(emphasis "External pkgs(3/5): dynamixel-workbench")
-sudo apt install ros-melodic-cmake-modules
-cd $EXTWS_SRC
-safe-git-clone "https://github.com/ROBOTIS-GIT/dynamixel-workbench.git"
-cd ..
-catkin_make
+# (emphasis "External pkgs(3/5): dynamixel-workbench")
+# sudo apt install ros-melodic-cmake-modules
+# cd $EXTWS_SRC
+# safe-git-clone "https://github.com/ROBOTIS-GIT/dynamixel-workbench.git"
+# cd ..
+# catkin_make
 
-(emphasis "External pkgs(4/5): industrial_core")
-cd $EXTWS_SRC
-safe-git-clone "https://github.com/ros-industrial/industrial_core.git"
-cd ..
-catkin_make
+# (emphasis "External pkgs(4/5): industrial_core")
+# cd $EXTWS_SRC
+# safe-git-clone "https://github.com/ros-industrial/industrial_core.git"
+# cd ..
+# catkin_make
 
-(emphasis "External pkgs(5/5): robotis_manipulator")
+# (emphasis "External pkgs(5/5): robotis_manipulator")
+# cd $EXTWS_SRC
+# safe-git-clone "https://github.com/ROBOTIS-GIT/robotis_manipulator.git"
+# cd ..
+# catkin_make
+
+(emphasis "External pkgs: 6DOF_social_robot")
 cd $EXTWS_SRC
-safe-git-clone "https://github.com/ROBOTIS-GIT/robotis_manipulator.git"
-cd ..
-catkin_make
+safe-git-clone "https://git.robocare.io/social/6DOF_social_robot.git"
+
+(emphasis "...fix error: plane_extractor, camera_to_laser")
+cd ./6DOF_social_robot/social_nav/robocare_nav
+sed -i 's/jade/kinetic/g' ./pcm_ws/plane_extractor/CMakeLists.txt
+sed -i 's/jade/kinetic/g' ./camera_to_laser/CMakeLists.txt
+
+(emphasis "...fix error: nuitrack")
+cd $ROOT_DIR
+if [ "$(ls | grep nuitrack)" == "" ]; then
+    (emphasis "Download nuitrack-ubuntu-amd64.deb")
+    curl -LO http://download.3divi.com/Nuitrack/platforms/nuitrack-ubuntu-amd64.deb
+
+    sudo apt remove openni-utils
+    sudo mkdir -p /etc/udev/rules.d
+    sudo mkdir -p /etc/modprobe.d
+    sudo dpkg -i nuitrack-ubuntu-amd64.deb
+
+    SHELL_MSG_A='\n# nuitrack'
+    SHELL_MSG_B='export NUITRACK_HOME=/usr/etc/nuitrack'
+    SHELL_MSG_C='export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/nuitrack:~/social-root/external_ws/devel/lib'
+    if [ "$(duplicate-check-bashrc "nuitrack")" ]; then
+        echo -e "${SHELL_MSG_A}" >>~/.bashrc
+        echo -e "${SHELL_MSG_B}" >>~/.bashrc
+        echo -e "${SHELL_MSG_C}" >>~/.bashrc
+    fi
+    if [ "$(duplicate-check-zshrc "nuitrack")" ]; then
+        echo -e "${SHELL_MSG_A}" >>~/.zshrc
+        echo -e "${SHELL_MSG_B}" >>~/.zshrc
+        echo -e "${SHELL_MSG_C}" >>~/.zshrc
+    fi
+
+    cd $EXTWS_SRC/..
+    catkin_make -DCATKIN_BLACKLIST_PACKAGES="robocare_tts"
+else
+    (emphasis "nuitrack-ubuntu-amd64.deb exists.")
+    (emphasis "This process was kipped.")
+fi
+
+NUI_DIR="${EXTWS_SRC}/6DOF_social_robot/social_nav/robocare_nav"
+SOURCE_DIR="/usr/local/lib/nuitrack"
+cd ${NUI_DIR}/pcm_ws/plane_extractor/lib/
+rm -rf linux64
+ln -s ${SOURCE_DIR} linux64
+cd ${NUI_DIR}/camera_to_laser/lib
+rm -rf linux64
+ln -s ${SOURCE_DIR} linux64
+# TARGET_DIR="pcm_ws/plane_extractor/lib/linux64"
+# cp /usr/local/lib/nuitrack/libmiddleware.so ${TARGET_DIR}
+# cp /usr/local/lib/nuitrack/libnuitrack.so ${TARGET_DIR}
+# TARGET_DIR="camera_to_laser/lib/linux64"
+# cp /usr/local/lib/nuitrack/libmiddleware.so ${TARGET_DIR}
+# cp /usr/local/lib/nuitrack/libnuitrack.so ${TARGET_DIR}
+cd ${EXTWS_SRC}/..
+catkin_make -DCATKIN_WHITELIST_PACKAGES="dynamixel_workbench_toolbox"
+catkin_make -DCATKIN_WHITELIST_PACKAGES=""
 
 (emphasis "robocare repo.")
 sudo apt-get install ros-melodic-laser-proc
@@ -366,6 +480,19 @@ catkin_make -DCATKIN_WHITELIST_PACKAGES="mobile_motion_planner;arm_motion_planne
 
 cd $ROOT_DIR
 safe-git-clone "https://gitlab.com/social-robot/base-environment.git"
+cd base-environment
+git checkout devel
+cp socialrobot-ws.code-workspace.example socialrobot-ws.code-workspace
+
+###########################################################
+cd $ROOT_DIR
+cd external_ws
+catkin_make -DCATKIN_BLACKLIST_PACKAGES="robocare_tts"
+
+cd $ROOT_DIR
+cd catkin_ws
+catkin_make -DCATKIN_BLACKLIST_PACKAGES="mobile_manipulator_controller;mobile_motion_planner;robocare_tts"
+
 
 ###########################################################
 (emphasis "Finished!")
