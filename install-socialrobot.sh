@@ -248,6 +248,7 @@ catkin_make
 ###########################################################
 (section-separator "socialrobot repository (from GitLab)")
 
+sudo apt install ros-melodic-joint-state-publisher
 sudo apt install ros-melodic-urg-c
 sudo apt install ros-melodic-eigen-conversions
 sudo apt install ros-melodic-roslint
