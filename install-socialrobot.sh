@@ -95,6 +95,8 @@ catkin_init_workspace
 ###########################################################
 source <(curl -fsSL ${COMPONENTS_URL}/coppeliasim-edu-v4.sh)
 install-coppeliaSim $ROOT_DIR
+cd $ROOT_DIR/CoppeliaSim_Edu_V4
+cp ./compiledRosPlugins/libsimExtROSInterface.so ./libsimExtROSInterface.so
 
 ###########################################################
 (section-separator "ROS packages for social-robot")
