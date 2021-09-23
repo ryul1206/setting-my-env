@@ -5,13 +5,14 @@ source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/ma
 
 if [ "$(which roscore)" == "" ]; then
     echo ""
-    echo "This script is for the ROS1 Melodic Desktop (not full)."
-    echo "Do you wish to install this program?"
+    echo "This script is for the ROS1 Melodic Desktop (not full-version)."
+    echo "Do you want to install this program?"
 
     ANSWER=$(ask "Yes" "No")
     if ((ANSWER == 1)); then
         sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-        sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+        sudo apt install curl -y
+        curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
         sudo apt update
         sudo apt install ros-melodic-desktop -y
 
