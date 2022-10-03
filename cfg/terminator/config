@@ -1,0 +1,22 @@
+[global_config]
+  title_transmit_fg_color = "#000000"
+  title_transmit_bg_color = "#fce94f"
+  title_font = Fira Code weight=453 12
+[keybindings]
+[profiles]
+  [[default]]
+    allow_bold = False
+    cursor_color = "#aaaaaa"
+    font = Fira Code 12
+    foreground_color = "#ffffff"
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+[plugins]

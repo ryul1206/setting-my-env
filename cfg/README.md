@@ -1,0 +1,1 @@
+- terminator: `~/.config/terminator/config`

@@ -1,7 +1,7 @@
 #!/bin/bash
 source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
 
-(subsection "oh-my-zsh")
+(section_separator "oh-my-zsh")
 
 cd
 if [ -d ".oh-my-zsh" ]; then
@@ -26,4 +26,9 @@ else
     (subsection "history")
 
     sed -i 's/plugins=(git)/plugins=(\n  colorize\n  git\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n  history\n)/g' ~/.zshrc
+
+    # THEME
+    (subsection "theme")
+    THEME="agnoster"
+    sed -i "s/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"${THEME}\"/g" ~/.zshrc
 fi
