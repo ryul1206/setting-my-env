@@ -6,15 +6,9 @@ This repository is a shell script collection for a rapid personal setting.
 ![GitHub](https://img.shields.io/github/license/ryul1206/setting-my-env.svg)
 
 1. [Importing `functions.sh`](#importing-functionssh)
-      1. [Beautiful Prints](#beautiful-prints)
-      2. [Evaluations](#evaluations)
-      3. [Install, Download, Safe Git-commands](#install-download-safe-git-commands)
 2. [Installation Example](#installation-example)
-   1. [Install one component](#install-one-component)
-      1. [curl example](#curl-example)
-   2. [Meta-installation](#meta-installation)
-      1. [via curl](#via-curl)
-      2. [via wget](#via-wget)
+   1. [Preset](#preset)
+   2. [Single component](#single-component)
 
 ## Importing `functions.sh`
 
@@ -78,34 +72,37 @@ This shell script contains the features below:
 
 ## Installation Example
 
-### Install one component
+### Preset
 
-#### curl example
-
-```sh
-COMPONENTS_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master/components"
-bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
-```
-
-### Meta-installation
-
-#### via curl
+via curl
 
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/install.sh)"
+REPO_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master"
+bash <(curl -fsSL ${REPO_URL}/setting_my_wsl.sh)
 ```
 
-#### via wget
+via wget
 
 ```sh
-bash -c "$(wget -q -o /dev/null -O- https://raw.githubusercontent.com/ryul1206/setting-my-env/master/install.sh)"
+REPO_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master"
+bash -c "$(wget -q -o /dev/null -O- ${REPO_URL}/setting_my_wsl.sh)"
 ```
+
+### Single component
+
+```sh
+# curl
+REPO_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master"
+bash <(curl -fsSL ${REPO_URL}/components/git.sh)
+```
+
+<!--
 <details><summary>Component List</summary>
 <p>
 
 1. basics
    - git
-   - vim 
+   - vim
    - npm
    - curl
    - wget
@@ -126,7 +123,5 @@ bash -c "$(wget -q -o /dev/null -O- https://raw.githubusercontent.com/ryul1206/s
 </p>
 </details>
 
-
----
-
 If you can't find scripts you want here, find them [here](https://github.com/ohilho/initialize_script).
+-->

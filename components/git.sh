@@ -1,6 +1,7 @@
 #!/bin/bash
 source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
 
+#################### Git
 QUESTION=$(
     cat <<EOM
 Do you want to set up your GIT?
@@ -49,3 +50,34 @@ else
     2) ;;
     esac
 fi
+
+
+#################### GitHub CLI
+QUESTION=$(
+    cat <<EOM
+Do you want to set up GitHub CLI (gh)?
+EOM
+)
+echo "${QUESTION}"
+case $(ask "Yes" "No") in
+1)
+    if [ "$(which gh)" ]; then
+        already-installed "gh"
+    else
+        # Install
+        type -p curl >/dev/null || sudo apt install curl -y
+        curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+        && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+        && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+        && sudo apt update \
+        && sudo apt install gh -y
+
+        # Login
+        (emphasis "[ GitHub CLI ] Login")
+        gh auth login
+
+        (emphasis "[ GitHub CLI ] Installation complete!")
+    fi
+    ;;
+2) ;;
+esac

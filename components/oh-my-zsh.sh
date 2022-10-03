@@ -15,9 +15,15 @@ else
     # oh-my-zsh plugins
     ####################
 
-    (subsection "zsh-autosuggestions")
-    # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
+    (subsection "colorize plugin")
+    (subsection "git plugin")
+    (subsection "zsh-autosuggestions (install required)")
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
+    (subsection "zsh-syntax-highlighting (install required)")
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
+    (subsection "history")
 
-    sed -i 's/plugins=(git)/plugins=(\n  git\n  zsh-autosuggestions\n)/g' ~/.zshrc
+    sed -i 's/plugins=(git)/plugins=(\n  colorize\n  git\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n  history\n)/g' ~/.zshrc
 fi
