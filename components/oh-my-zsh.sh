@@ -16,19 +16,25 @@ else
     ####################
 
     (subsection "colorize plugin")
+    sudo apt install python3-pygments -y
+    
     (subsection "git plugin")
+
     (subsection "zsh-autosuggestions (install required)")
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+    
     (subsection "zsh-syntax-highlighting (install required)")
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
     (subsection "history")
 
     sed -i 's/plugins=(git)/plugins=(\n  colorize\n  git\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n  history\n)/g' ~/.zshrc
 
     # THEME
     (subsection "theme")
-    THEME="agnoster"
+    THEME="sorin"
     sed -i "s/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"${THEME}\"/g" ~/.zshrc
 fi
