@@ -144,9 +144,9 @@ function apt-install() {
             if is-not-exist $PKG_NAME; then
                 failed=$(($failed + 1))
                 # Light red
-                printf '\e[91m%-6s\e[0m\n' " Failed. ($failed)"
+                printf '\e[91m%-6s\e[0m\n' " Failed. ($failed)\n"
             elsesud
-                printf '\e[92m%-6s\e[0m\n' " Success."
+                printf '\e[92m%-6s\e[0m\n' " Success.\n"
             fi
         else
             already-installed $PKG_NAME

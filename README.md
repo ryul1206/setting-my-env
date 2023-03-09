@@ -78,14 +78,14 @@ via curl
 
 ```sh
 REPO_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master"
-bash <(curl -fsSL ${REPO_URL}/setting_my_wsl.sh)
+bash <(curl -fsSL ${REPO_URL}/usages/setting_my_wsl.sh)
 ```
 
 via wget
 
 ```sh
 REPO_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master"
-bash -c "$(wget -q -o /dev/null -O- ${REPO_URL}/setting_my_wsl.sh)"
+bash -c "$(wget -q -o /dev/null -O- ${REPO_URL}/usages/setting_my_wsl.sh)"
 ```
 
 ### Single component
