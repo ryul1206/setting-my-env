@@ -19,7 +19,7 @@ else
     mkdir $ZSH_CUSTOM/plugins/poetry
     poetry completions zsh > $ZSH_CUSTOM/plugins/poetry/_poetry
     sed -i 's/plugins=(git)/plugins=(\n  git\n)/g' ~/.zshrc
-    sed -i 's/plugins=(\n/plugins=(\n  poetry/g' ~/.zshrc
+    sed -zi 's/plugins=(\n/plugins=(\n  poetry\n/g' ~/.zshrc
 fi
 
 (emphasis "Set poetry config")

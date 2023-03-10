@@ -34,7 +34,7 @@ else
     (subsection "history")
 
     sed -i 's/plugins=(git)/plugins=(\n  git\n)/g' ~/.zshrc
-    sed -i 's/plugins=(\n/plugins=(\n  colorize\n  zsh-autocomplete\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n  history/g' ~/.zshrc
+    sed -zi 's/plugins=(\n/plugins=(\n  colorize\n  zsh-autocomplete\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n  history\n/g' ~/.zshrc
 
     # THEME
     (subsection "theme")
