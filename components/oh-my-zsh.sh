@@ -18,21 +18,23 @@ else
     (subsection "colorize plugin")
     sudo apt install python3-pygments -y
 
-    (subsection "git plugin")
+    _PLUGINS_DIR="${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins"
 
-    (subsection "zsh-autosuggestions (install required)")
+    (subsection "Get zsh-autocomplete")
+    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $_PLUGINS_DIR/zsh-autocomplete
+
+    (subsection "Get zsh-autosuggestions")
     # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions $_PLUGINS_DIR/zsh-autosuggestions
 
-
-    (subsection "zsh-syntax-highlighting (install required)")
+    (subsection "Get zsh-syntax-highlighting")
     # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $_PLUGINS_DIR/zsh-syntax-highlighting
 
     (subsection "history")
 
     sed -i 's/plugins=(git)/plugins=(\n  git\n)/g' ~/.zshrc
-    sed -i 's/plugins=(\n/plugins=(\n  colorize\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n  history/g' ~/.zshrc
+    sed -i 's/plugins=(\n/plugins=(\n  colorize\n  zsh-autocomplete\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n  history/g' ~/.zshrc
 
     # THEME
     (subsection "theme")
