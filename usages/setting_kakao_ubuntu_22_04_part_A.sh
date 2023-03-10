@@ -1,4 +1,5 @@
 REPOSITORY_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master"
+COMPONENTS_URL="${REPOSITORY_URL}/components"
 source <(curl -fsSL ${REPOSITORY_URL}/functions.sh)
 
 (section-separator "Switch the source to the Kakao server and update")
