@@ -18,18 +18,18 @@ else
     (subsection "colorize plugin")
     sudo apt install python3-pygments -y
 
-    _PLUGINS_DIR="${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins"
+    export _PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
 
     (subsection "Get zsh-autocomplete")
-    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $_PLUGINS_DIR/zsh-autocomplete
+    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${_PLUGINS_DIR}/zsh-autocomplete
 
     (subsection "Get zsh-autosuggestions")
     # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
-    git clone https://github.com/zsh-users/zsh-autosuggestions $_PLUGINS_DIR/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${_PLUGINS_DIR}/zsh-autosuggestions
 
     (subsection "Get zsh-syntax-highlighting")
     # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $_PLUGINS_DIR/zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${_PLUGINS_DIR}/zsh-syntax-highlighting
 
     (subsection "history")
 
