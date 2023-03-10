@@ -21,36 +21,21 @@ sudo apt update
 (emphasis "sudo apt upgrade -y")
 sudo apt upgrade -y
 
+
+(section-separator "Git & GitHub CLI")
+
+bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
+
+
 (section-separator "Configuration")
 
 # Black screen timeout
 gsettings set org.gnome.desktop.session idle-delay $((60*60*3))
 
 
-(section-separator "Basic packages")
-COMPONENTS_URL="${REPOSITORY_URL}/components"
-
-BASIC_PKGS=(
-    "neovim"
-    "fonts-firacode"
-    "cmake"
-    "gnome-terminal"
-    "gnome-tweaks"
-    "gnome-shell-extensions"
-)
-apt-install "${BASIC_PKGS[@]}"
-
-(emphasis "Resolve the Gnome dash-to-dock duplication issue")
-sudo apt purge gnome-shell-extension-ubuntu-dock
+(section-separator "Oh My Zsh")
 
 bash <(curl -fsSL ${COMPONENTS_URL}/zsh.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/oh-my-zsh.sh)
 
-bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/google-chrome.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/obs.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/terminator.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/vscode.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/poetry.sh)
-
-(emphasis "Finished!")
+(emphasis "Part A - Finished!")
