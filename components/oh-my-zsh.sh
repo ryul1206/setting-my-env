@@ -22,6 +22,7 @@ else
 
     (subsection "Get zsh-autocomplete")
     git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${_PLUGINS_DIR}/zsh-autocomplete
+    sed -zi 's/source $ZSH/oh-my-zsh.sh\n/source $ZSH/oh-my-zsh.sh\nautoload -U compinit && compinit\n/g' ~/.zshrc
 
     (subsection "Get zsh-autosuggestions")
     # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
