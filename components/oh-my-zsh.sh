@@ -20,9 +20,9 @@ else
 
     export _PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
 
-    (subsection "Get zsh-autocomplete")
-    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${_PLUGINS_DIR}/zsh-autocomplete
-    sed -zi 's/source $ZSH/oh-my-zsh.sh\n/source $ZSH/oh-my-zsh.sh\nautoload -U compinit && compinit\n/g' ~/.zshrc
+    # (subsection "Get zsh-autocomplete")
+    # git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${_PLUGINS_DIR}/zsh-autocomplete
+    # sed -zi 's/source $ZSH/oh-my-zsh.sh\n/source $ZSH/oh-my-zsh.sh\nautoload -U compinit && compinit\n/g' ~/.zshrc
 
     (subsection "Get zsh-autosuggestions")
     # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
@@ -35,10 +35,12 @@ else
     (subsection "history")
 
     sed -i 's/plugins=(git)/plugins=(\n  git\n)/g' ~/.zshrc
-    sed -zi 's/plugins=(\n/plugins=(\n  colorize\n  zsh-autocomplete\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n  history\n/g' ~/.zshrc
+    
+    # sed -zi 's/plugins=(\n/plugins=(\n  colorize\n  zsh-autocomplete\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n  history\n/g' ~/.zshrc
+    sed -zi 's/plugins=(\n/plugins=(\n  colorize\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n  history\n/g' ~/.zshrc
 
     # THEME
     (subsection "theme")
-    THEME="sorin"
+    THEME="agnoster"
     sed -i "s/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"${THEME}\"/g" ~/.zshrc
 fi
