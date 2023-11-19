@@ -6,8 +6,9 @@
 [profiles]
   [[default]]
     allow_bold = False
+    background_color = "#2c001e"
     cursor_color = "#aaaaaa"
-    font = Fira Code 12
+    font = Fira Code weight=453 12
     foreground_color = "#ffffff"
     use_system_font = False
 [layouts]
