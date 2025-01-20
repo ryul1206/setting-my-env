@@ -5,12 +5,17 @@ source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/ma
 if [ "$(which poetry)" ]; then
     already-installed "poetry"
 else
+    sudo apt install curl -y
+
     # Install poetry
     curl -sSL https://install.python-poetry.org | python3 -
 
     # Add poetry to PATH
     echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
     echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+
+    # Check if the current shell is bash or zsh
+    (refresh-shell)
 
     # Auto-completion
     # bash

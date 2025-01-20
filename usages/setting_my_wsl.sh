@@ -11,7 +11,6 @@ sudo apt upgrade -y
 COMPONENTS_URL="${REPOSITORY_URL}/components"
 
 bash <(curl -fsSL ${COMPONENTS_URL}/git.sh)
-bash <(curl -fsSL ${COMPONENTS_URL}/zsh.sh)
 bash <(curl -fsSL ${COMPONENTS_URL}/oh-my-zsh.sh)
 # BASIC_PKGS=(
 #     "vim"

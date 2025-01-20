@@ -5,12 +5,12 @@ This repository is a shell script collection for a rapid personal setting.
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ryul1206/setting-my-env.svg)
 ![GitHub](https://img.shields.io/github/license/ryul1206/setting-my-env.svg)
 
-1. [Importing `functions.sh`](#importing-functionssh)
+1. [Explanation of `functions.sh`](#explanation-of-functionssh)
 2. [Installation Example](#installation-example)
    1. [Preset](#preset)
    2. [Single component](#single-component)
 
-## Importing `functions.sh`
+## Explanation of `functions.sh`
 
 ```sh
 source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
@@ -27,6 +27,7 @@ This shell script contains the features below:
 
 #### Evaluations
 
+- refresh-shell
 - duplicate-check-bashrc
 - duplicate-check-zshrc
 - is-not-exist
@@ -74,18 +75,11 @@ This shell script contains the features below:
 
 ### Preset
 
-via curl
-
 ```sh
 REPO_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master"
 bash <(curl -fsSL ${REPO_URL}/usages/setting_my_wsl.sh)
-```
-
-via wget
-
-```sh
-REPO_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master"
-bash -c "$(wget -q -o /dev/null -O- ${REPO_URL}/usages/setting_my_wsl.sh)"
+# or
+# bash -c "$(wget -q -o /dev/null -O- ${REPO_URL}/usages/setting_my_wsl.sh)"
 ```
 
 ### Single component
@@ -96,32 +90,4 @@ REPO_URL="https://raw.githubusercontent.com/ryul1206/setting-my-env/master"
 bash <(curl -fsSL ${REPO_URL}/components/git.sh)
 ```
 
-<!--
-<details><summary>Component List</summary>
-<p>
-
-1. basics
-   - git
-   - vim
-   - npm
-   - curl
-   - wget
-   - zsh
-     - oh-my-zsh
-     - zsh-autosuggestions
-   - python
-3. utilities
-   - vscode
-   - slack
-   - google-chrome
-   - [todoist](https://github.com/KryDos/todoist-linux) (will be installed in `~/Downloads`)
-   - gnome-panel
-   - [OBS](https://obsproject.com/)
-4. others
-   - ros1 (melodic)
-
-</p>
-</details>
-
-If you can't find scripts you want here, find them [here](https://github.com/ohilho/initialize_script).
--->
+Check the `components` directory for more components.

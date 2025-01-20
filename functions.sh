@@ -55,6 +55,15 @@ function spinner() {
 # Evaluations
 ################################################
 
+function refresh-shell() {
+    # Check if the current shell is bash or zsh
+    if echo "$0" | grep -q bash; then
+        source ~/.bashrc
+    else
+        source ~/.zshrc
+    fi
+}
+
 function duplicate-check-bashrc() {
     COMP=${@}
     if [ "$(which bash)" ]; then
@@ -135,7 +144,7 @@ function apt-install() {
         if is-not-exist $PKG_NAME; then
             sudo tput civis
             printf '\e[93m%-6s\e[0m' "Now installing [ $PKG_NAME ]... "
-            spinner & spinner_pid=$!       
+            spinner & spinner_pid=$!
             { # silent
                 sudo apt install $PKG_NAME -y
                 kill $spinner_pid
@@ -183,7 +192,7 @@ function new-client() {
     OVPN_IP=$1
     OVPN_PORT=$2
     CLIENTNAME=$3
-    
+
     if [ "${OVPN_IP}" ] && [ "${OVPN_PORT}" ] && [ "${CLIENTNAME}" ]; then
         (emphasis "Generate a client certificate")
         docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kylemanna/openvpn easyrsa build-client-full ${CLIENTNAME} nopass

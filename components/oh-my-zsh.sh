@@ -1,12 +1,22 @@
 #!/bin/bash
 source <(curl -fsSL https://raw.githubusercontent.com/ryul1206/setting-my-env/master/functions.sh)
 
+(section-separator zsh)
+
+if [ "$(which zsh)" ]; then
+    (already-installed "zsh")
+else
+    sudo apt install zsh -y
+fi
+
 (section_separator "oh-my-zsh")
 
 cd
 if [ -d ".oh-my-zsh" ]; then
     already-installed "oh-my-zsh"
 else
+    sudo apt install curl git -y
+
     # Redirection Problem Solved!
     # https://stackoverflow.com/questions/37360258/unreachable-command-in-a-shell-script-code-while-installing-oh-my-zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sed "s/exec zsh.*//g")"
@@ -35,7 +45,7 @@ else
     (subsection "history")
 
     sed -i 's/plugins=(git)/plugins=(\n  git\n)/g' ~/.zshrc
-    
+
     # sed -zi 's/plugins=(\n/plugins=(\n  colorize\n  zsh-autocomplete\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n  history\n/g' ~/.zshrc
     sed -zi 's/plugins=(\n/plugins=(\n  colorize\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n  history\n/g' ~/.zshrc
 
