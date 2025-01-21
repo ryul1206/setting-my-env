@@ -38,7 +38,7 @@ apt-install "${BASIC_PKGS[@]}"
 bash <(curl -fsSL ${COMPONENTS_URL}/terminator.sh)
 
 echo "Do you want to install the following programs?"
-echo "[google-chrome, obs, simplescreenrecorder, poetry, vscode, cursor, obsidian]"
+echo "[google-chrome, obs, simplescreenrecorder, poetry, vscode, cursor, docker-engine]"
 case $(ask "Yes" "No") in
 1)
     apt-install "simplescreenrecorder"
@@ -47,6 +47,7 @@ case $(ask "Yes" "No") in
     bash <(curl -fsSL ${COMPONENTS_URL}/poetry.sh)
     bash <(curl -fsSL ${COMPONENTS_URL}/vscode.sh)
     bash <(curl -fsSL ${COMPONENTS_URL}/cursor.sh)
+    bash <(curl -fsSL ${COMPONENTS_URL}/docker-engine.sh)
     ;;
 2) ;;
 esac
